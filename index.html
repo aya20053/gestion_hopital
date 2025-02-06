@@ -29,6 +29,7 @@
     color: white;
     position: relative;
     text-align: center;
+    transition: background-image 0.5s ease;
 }
         .overlay {
             position: absolute;
@@ -36,9 +37,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            position: absolute;
-    z-index: 1; /* Met la superposition en dessous du contenu */
-}
+            background-color: rgba(0, 0, 0, 0.1);
+        }
         .text-overlay {
     position: absolute;
     bottom: 20px;
@@ -59,76 +59,104 @@
 
   /* Navigation */
   .navbar {
-    position: absolute;
-    top: 20px;
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 2;
-    text-decoration: solid;
-}
+            position: absolute;
+            top: 20px;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
 
-.navbar img {
-    height: 60px;
-}
+        .navbar img {
+            height: 60px;
+        }
 
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
 
-}
+        .navbar ul li {
+            display: inline;
+        }
 
-.navbar ul li {
-    display: inline;
-    text-decoration: solid;
-}
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            transition: 0.3s;
+        }
 
-.navbar ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 10px;   
-    transition: color 0.3s; /* Spécification de la propriété à animer */
-}
+        .navbar ul li a:hover {
+            color: #ffcc00;
+        }
 
-.navbar ul li a:hover {
-    color: #0066ff;
-}
+        /* Boutons */
+        .buttons {
+            position: relative;
+            z-index: 2;
+            margin-top: 20px;
+        }
 
-.navbar ul li:last-child,
-.navbar ul li:nth-last-child(2) {
-    border: 1px solid #007BFF; /* Bordure blanche */
-    border-radius: 5px; /* Coins arrondis */
-    padding: 5px 10px; /* Espacement interne */
-}
-h1 {
-    font-size: 2.5em;
-    margin: 0;
-}
+        .buttons button {
+            padding: 12px 20px;
+            margin: 10px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
 
-p {
-    font-size: 1.2em;
-    margin-top: 10px;
-}
+        .buttons button:first-child {
+            background-color: #007BFF;
+            color: white;
+        }
 
-/* Suppression de la redondance pour les boutons */
-button {
-    background-color: #007BFF; /* Cette règle peut être retirée si les boutons sont déjà stylisés dans .buttons button */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1em;
-}
+        .buttons button:first-child:hover {
+            background-color: #0056b3;
+        }
 
-button:hover {
-    background-color: #0056b3;
-}
+        .buttons button:last-child {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .buttons button:last-child:hover {
+            background-color: #1e7e34;
+        }
+
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        p {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        .buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        button {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
         .arrow {
             position: absolute;
             top: 50%;
@@ -359,20 +387,19 @@ button:hover {
 <body>
     <div class="hero" id="hero">
         <div class="overlay"></div>
-    
+
         <!-- Barre de navigation -->
         <nav class="navbar">
             <img src="logo.png" alt="Logo Hôpital" />
             <ul>
                 <li><a href="#specialites">Nos spécialités</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="inscription.html">S'inscrire</a></li>
-                <li><a href="login.html">Se connecter</a></li>
             </ul>
         </nav>
-    
-
-
+        <div class="buttons">
+            <button onclick="window.location.href='inscription.html'">S'inscrire</button>
+            <button onclick="window.location.href='login.html'">Se connecter</button>
+        </div>
         <div class="arrow left" onclick="changeImage(-1)">&#10094;</div>
         <div class="arrow right" onclick="changeImage(1)">&#10095;</div>
         <div class="text-overlay" id="imageText">Texte pour l'image 1</div>
