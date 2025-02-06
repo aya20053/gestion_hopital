@@ -169,15 +169,24 @@
 
 /* Conteneur en deux colonnes */
 .contact-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 50px;
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+     
+        }
 
 /* Section coordonnées (gauche) */
 .contact-info {
     width: 45%;
     color: #555;
+    flex: 1;
+
 }
 
 .contact-info p {
@@ -191,6 +200,9 @@
 }
 
 /* Formulaire (droite) */
+.contact-form form {
+           
+        }
 .contact-form {
     width: 50%;
 }
@@ -278,6 +290,16 @@ button:hover {
 }
 
 
+
+
+
+
+
+      
+      
+
+       
+      
     </style>
 </head>
 <body>
@@ -390,14 +412,15 @@ button:hover {
         const images = [
             '1.jpg',
             '2.jpg',
+            'bebe.jpg',
             '3.jpg' // Ajoute les chemins de tes autres images ici
         ];
 
         const texts = [
-            'Bienvenue à l\'Hôpital pour Enfants - Des soins sp\écialisés pour les mamans et leurs bébés.',
-    'Un environnement chaleureux et accueillant pour les mamans et leurs bébés.',
-    'Des soins de santé de qualité pour accompagner chaque étape de la grossesse.',
-    'Une équipe médicale spécialisée prête à répondre aux besoins de votre enfant.'
+    `Bienvenue à l'Hôpital pour Enfants et à la Clinique de Bonheur - Des soins spécialisés pour les mamans et leurs bébés.`,
+    `Un environnement chaleureux et accueillant à la Clinique de Bonheur pour les mamans et leurs bébés.`,
+    `Des soins de santé de qualité à la Clinique de Bonheur pour accompagner chaque étape de la grossesse.`,
+    `Une équipe médicale spécialisée à la Clinique de Bonheur, prête à répondre aux besoins de votre enfant.`
 ];
 
         let currentIndex = 0;
