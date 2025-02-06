@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hôpital pour Enfants</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        .hero {
+    display: flex;
+    flex-direction: column; /* Aligne les enfants en colonne */
+    justify-content: center; /* Centre verticalement */
+    align-items: center; /* Centre horizontalement */
+    background-image: url('1.jpg'); /* Image initiale */
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    color: white;
+    position: relative;
+    text-align: center;
+    transition: background-image 0.5s ease;
+}
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .text-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 50%); /* Centre le texte horizontalement */
+    color: white;
+    font-size: 1.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombre portée */
+    background-color: rgba(0, 0, 0, 0.5); /* Fond sombre semi-transparent */
+    padding: 10px 20px; /* Espacement autour du texte */
+    border-radius: 10px; /* Coins arrondis */
+    max-width: 80%; /* Limite la largeur */
+    font-family: 'Georgia', serif; /* Police élégante */
+    line-height: 1.4; /* Espacement entre les lignes */
+    text-align: center; /* Centre le texte à l'intérieur de la div */
+}
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        p {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        .buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        button {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+        }
+        .arrow.left {
+            left: 20px;
+        }
+        .arrow.right {
+            right: 20px;
+        }
+        .text-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.5em;
+        }
+
+     
+
+
+        .specialties {
+    background-color: #f8f9fa; /* Couleur de fond claire */
+    padding: 40px 20px; /* Espacement intérieur */
+    text-align: center; /* Centre le texte */
+    font-family: Arial, sans-serif; /* Police de caractère */
+}
+
+.specialties h2 {
+    font-size: 2em; /* Taille du titre */
+    margin-bottom: 20px; /* Espacement en bas */
+}
+
+.specialty-container {
+    display: flex; /* Utilise flexbox pour disposer les cartes */
+    flex-wrap: wrap; /* Permet aux cartes de passer à la ligne si nécessaire */
+    justify-content: space-around; /* Répartit l'espace entre les cartes */
+}
+
+.specialty-card {
+    display: flex; /* Utilise flexbox pour aligner l'icône et le texte */
+    flex-direction: column; /* Aligne l'icône au-dessus du texte */
+    align-items: center; /* Centre horizontalement */
+    justify-content: center; /* Centre verticalement */
+    margin: 15px; /* Espacement entre les cartes */
+    padding: 20px; /* Espacement intérieur de chaque carte */
+    width: calc(25% - 30px); /* Largeur des cartes (4 cartes par ligne) */
+    height: 200px; /* Hauteur des cartes */
+    background-color: white; /* Fond blanc pour les cartes */
+    border: 2px solid #007BFF; /* Bordure bleue autour des cartes */
+    border-radius: 10px; /* Coins arrondis pour les cartes */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre pour les cartes */
+    transition: transform 0.3s; /* Transition pour effet au survol */
+    min-width: 220px; /* Largeur minimale pour les cartes */
+}
+
+.specialty-card:hover {
+    transform: scale(1.05); /* Effet d'agrandissement au survol */
+}
+
+.specialty-card i {
+    font-size: 3em; /* Taille des icônes */
+    margin-bottom: 10px; /* Espacement en bas de l'icône */
+    color: #007BFF; /* Couleur des icônes */
+}
+
+.specialty-card span {
+    font-size: 1.2em; /* Taille du texte des spécialités */
+    font-weight: bold; /* Gras pour le texte */
+}
+
+
+
+.contact {
+    background-color: #ffffff; /* Fond blanc */
+    padding: 40px; /* Espacement intérieur */
+    font-family: 'Arial', sans-serif; /* Police de caractère */
+    border-radius: 10px; /* Coins arrondis */
+    max-width: 600px; /* Largeur maximale pour la section */
+}
+
+.contact h2 {
+    font-size: 2.5em; /* Taille du titre */
+    color: #007BFF; /* Couleur du titre */
+    margin-bottom: 20px; /* Espacement en bas */
+}
+
+.contact-info p {
+    font-size: 1.1em; /* Taille du texte */
+    margin: 10px 0; /* Espacement entre les paragraphes */
+    color: #333; /* Couleur du texte */
+}
+
+.contact-info i {
+    margin-right: 20px; /* Espacement à droite des icônes */
+    color: #007BFF; /* Couleur des icônes */
+}
+
+.social-links {
+    margin-top: 20px; /* Espacement en haut */
+    text-align: center; /* Centre les icônes des réseaux sociaux */
+}
+
+.social-links a {
+    margin: 0 10px; /* Espacement autour des icônes */
+    color: #007BFF; /* Couleur des icônes */
+    font-size: 2em; /* Taille des icônes */
+    transition: color 0.3s; /* Animation pour la couleur au survol */
+}
+
+.social-links a:hover {
+    color: #0056b3; /* Couleur des icônes au survol */
+}
+
+.copyright {
+    text-align: center; /* Centre le texte du copyright */
+    margin-top: 20px; /* Espacement en haut */
+    font-size: 0.9em; /* Taille du texte du copyright */
+    color: #555; /* Couleur du texte */
+}
+    </style>
+</head>
+<body>
+    <div class="hero" id="hero">
+        <div class="overlay"></div>
+        <div class="buttons">
+            <button onclick="window.location.href='inscription.html'">S'inscrire</button>
+            <button onclick="window.location.href='login.html'">Se connecter</button>
+        </div>
+       
+        <div class="arrow left" onclick="changeImage(-1)">&#10094;</div>
+        <div class="arrow right" onclick="changeImage(1)">&#10095;</div>
+        <div class="text-overlay" id="imageText">Texte pour l'image 1</div>
+    </div>
+
+    <div class="specialties">
+        <h2>Nos Spécialités</h2>
+        <div class="specialty-container">
+            <div class="specialty-card">
+                <i class="fas fa-baby"></i>
+                <span>Soins néonatals</span>
+            </div>
+            <div class="specialty-card">
+                <i class="fas fa-user-md"></i>
+                <span>Pédiatrie générale</span>
+            </div>
+            <div class="specialty-card">
+                <i class="fas fa-scissors"></i>
+                <span>Chirurgie pédiatrique</span>
+            </div>
+            <div class="specialty-card">
+                <i class="fas fa-female"></i>
+                <span>Gynécologie obstétrique</span>
+            </div>
+            <div class="specialty-card">
+                <i class="fas fa-brain"></i>
+                <span>Psychologie infantile</span>
+            </div>
+            <div class="specialty-card">
+                <i class="fas fa-utensils"></i>
+                <span>Nutrition et conseils diététiques</span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="contact">
+        <h2>Contactez-nous</h2>
+        <div class="contact-info">
+            <p><i class="fas fa-map-marker-alt"></i> <strong>Adresse :</strong> 123 Rue de l'Hôpital, Ville, Pays</p>
+            <p><i class="fas fa-phone-alt"></i> <strong>Téléphone :</strong> +33 1 23 45 67 89</p>
+            <p><i class="fas fa-envelope"></i> <strong>Email :</strong> <a href="mailto:contact@exemple.com">contact@exemple.com</a></p>
+        </div>
+        <div class="social-links">
+            <h3>Suivez-nous :</h3>
+            <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p class="copyright">© 2023 Votre Entreprise. Tous droits réservés.</p>
+    </div>
+    
+    <!-- N'oublie pas d'inclure Font Awesome dans le <head> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- N'oublie pas d'inclure Font Awesome dans le <head> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- N'oublie pas d'inclure Font Awesome dans le <head> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- N'oublie pas d'inclure Font Awesome dans le <head> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- N'oublie pas d'inclure Font Awesome dans le <head> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+
+    <script>
+        const images = [
+            '1.jpg',
+            '2.jpg',
+            '3.jpg' // Ajoute les chemins de tes autres images ici
+        ];
+
+        const texts = [
+            'Bienvenue à l\'Hôpital pour Enfants - Des soins sp\écialisés pour les mamans et leurs bébés.',
+    'Un environnement chaleureux et accueillant pour les mamans et leurs bébés.',
+    'Des soins de santé de qualité pour accompagner chaque étape de la grossesse.',
+    'Une équipe médicale spécialisée prête à répondre aux besoins de votre enfant.'
+];
+
+        let currentIndex = 0;
+
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) {
+                currentIndex = images.length - 1; // Boucle à la dernière image
+            } else if (currentIndex >= images.length) {
+                currentIndex = 0; // Boucle à la première image
+            }
+
+            document.getElementById('hero').style.backgroundImage = `url('${images[currentIndex]}')`;
+            document.getElementById('imageText').innerText = texts[currentIndex]; // Met à jour le texte
+        }
+
+        // Initialiser le texte de la première image
+        document.getElementById('imageText').innerText = texts[currentIndex];
+    </script>
+</body>
+</html>
