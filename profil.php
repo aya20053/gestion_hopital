@@ -1,11 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
 
-$profilComplet = $_SESSION['profil_complet'];
+// Vérifie si la clé existe dans la session, sinon initialise à 0
+$profilComplet = isset($_SESSION['profil_complet']) ? $_SESSION['profil_complet'] : 0;
 ?>
 
 <!DOCTYPE html>
@@ -25,14 +22,14 @@ $profilComplet = $_SESSION['profil_complet'];
     </style>
 </head>
 <body>
-    <h1>Bienvenue, <?php echo $_SESSION['nom']; ?> !</h1>
+    <h1>Bienvenue,!</h1>
 
     <?php if ($profilComplet == 0): ?>
         <div class="alert">
             ⚠️ Votre dossier est incomplet. Veuillez <a href="completer_profil.php">le compléter ici</a>.
         </div>
     <?php endif; ?>
-    
+
     <p><a href="logout.php">Se déconnecter</a></p>
 </body>
 </html>

@@ -3,8 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Compléter Profil</title>
 </head>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9ecef;
+    margin: 0;
+    padding: 0;
+  }
+
+  form {
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  button {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
 <body>
 <form action="maj_profil.php" method="POST">
     <label>Date de Naissance :</label>
@@ -19,8 +70,22 @@
     <label>Groupe Sanguin :</label>
     <input type="text" name="groupe_sanguin" required>
 
+    <label>Date de Dernières Règles :</label>
+    <input type="date" name="date_dernieres_regles" required>
+
+    <label>Date Prévue d'Accouchement :</label>
+    <input type="date" name="date_prevue_accouchement" required>
+
+    <label>Nombre de Grossesses Précédentes :</label>
+    <input type="number" name="nombre_grossesses_precedentes" required>
+
+    <label>Antécédents Médicaux :</label>
+    <textarea name="antecedents_medicaux" required></textarea>
+
+    <label>Allergies :</label>
+    <textarea name="allergies" required></textarea>
+
     <button type="submit">Mettre à jour</button>
 </form>
-
 </body>
 </html>

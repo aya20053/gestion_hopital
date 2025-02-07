@@ -12,7 +12,6 @@ if ($conn->connect_error) {
 }
 
 $email = $_POST['email'];
-$password = $_POST['password'];
 
 // Vérifier si l'utilisateur existe
 $sql = "SELECT * FROM femmes_enceintes WHERE email='$email'";
@@ -20,18 +19,10 @@ $result = $conn->query($sql);
 
 if ($result->num_rows == 1) {
     $user = $result->fetch_assoc();
+    $_SESSION['user_id'] = $user['id'];
 
-    // Vérifier si le mot de passe correspond (utiliser password_hash en prod)
-    if ($password === $user['password']) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['nom'] = $user['nom'];
-        $_SESSION['profil_complet'] = $user['profil_complet'];
-
-        // Rediriger vers la page de profil
-        header("Location: profil.php");
-    } else {
-        echo "Mot de passe incorrect.";
-    }
+    // Rediriger vers la page de profil
+    header("Location: profil.php");
 } else {
     echo "Utilisateur non trouvé.";
 }
