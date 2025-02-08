@@ -15,6 +15,11 @@ $date_naissance = $_POST['date_naissance'];
 $telephone = $_POST['telephone'];
 $adresse = $_POST['adresse'];
 $groupe_sanguin = $_POST['groupe_sanguin'];
+$date_dernieres_regles = $_POST['date_dernieres_regles'];
+$date_prevue_accouchement = $_POST['date_prevue_accouchement'];
+$nombre_grossesses_precedentes = $_POST['nombre_grossesses_precedentes'];
+$antecedents_medicaux = $_POST['antecedents_medicaux'];
+$allergies = $_POST['allergies'];
 
 // Mettre à jour la base de données
 $sql = "UPDATE femmes_enceintes SET 
@@ -22,6 +27,11 @@ $sql = "UPDATE femmes_enceintes SET
     telephone='$telephone', 
     adresse='$adresse', 
     groupe_sanguin='$groupe_sanguin',
+    date_dernieres_regles='$date_dernieres_regles',
+    date_prevue_accouchement='$date_prevue_accouchement',
+    nombre_grossesses_precedentes='$nombre_grossesses_precedentes',
+    antecedents_medicaux='$antecedents_medicaux',
+    allergies='$allergies',
     profil_complet=1 
     WHERE id=$user_id";
 

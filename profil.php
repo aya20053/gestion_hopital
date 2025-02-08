@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include 'menu.php';
 // Vérifie si la clé existe dans la session, sinon initialise à 0
 $profilComplet = isset($_SESSION['profil_complet']) ? $_SESSION['profil_complet'] : 0;
 ?>
@@ -11,6 +11,9 @@ $profilComplet = isset($_SESSION['profil_complet']) ? $_SESSION['profil_complet'
     <meta charset="UTF-8">
     <title>Tableau de bord</title>
     <style>
+        body {
+            margin-top: 60px;
+        }
         .alert {
             background: #ffcc00;
             padding: 15px;
@@ -30,6 +33,5 @@ $profilComplet = isset($_SESSION['profil_complet']) ? $_SESSION['profil_complet'
         </div>
     <?php endif; ?>
 
-    <p><a href="logout.php">Se déconnecter</a></p>
 </body>
 </html>
