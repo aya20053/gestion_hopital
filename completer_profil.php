@@ -4,60 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Compléter Profil</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('cover.jpg'); /* Remplacez par le chemin de votre image */
+      background-size: cover;
+      background-position: center;
+      overflow: hidden; /* Empêche le défilement de la page */
+    }
+
+    form {
+      max-width: 700px;
+      width: 90%; /* Ajustement pour les petits écrans */
+      max-height: 80vh; /* Limite la hauteur du formulaire */
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.4); /* Transparence */
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px); /* Effet de flou */
+      overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 25px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      box-sizing: border-box;
+      background-color: rgba(255, 255, 255, 0.8); /* Légère transparence pour les champs */
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #35b4c6;
+      outline: none;
+    }
+
+    button {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: #35b4c6;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #e9ecef;
-    margin: 0;
-    padding: 0;
-  }
-
-  form {
-    max-width: 700px;
-    margin: 60px auto;
-    padding: 30px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  }
-
-  label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: 600;
-    color: #333;
-  }
-
-  input[type="text"],
-  input[type="date"],
-  input[type="number"],
-  textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 25px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-
-  button {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  button:hover {
-    background-color: #0056b3;
-  }
-</style>
 <body>
-<form action="maj_profil.php" method="POST">
+  <form action="maj_profil.php" method="POST">
     <label>Date de Naissance :</label>
     <input type="date" name="date_naissance" required>
 
@@ -86,6 +104,6 @@
     <textarea name="allergies" required></textarea>
 
     <button type="submit">Mettre à jour</button>
-</form>
+  </form>
 </body>
 </html>

@@ -3,66 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Connexion Femme Enceinte</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      background-image: url('cover.jpg'); /* Remplacez par le chemin de votre image */
+      background-size: cover;
+      background-position: center;
     }
 
-    form {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    .login-container {
+      background-color: rgba(255, 255, 255, 0.4); /* Transparence */
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      backdrop-filter: blur(5px); /* Effet de flou */
     }
 
-    label {
+    .login-container label {
       display: block;
       margin-bottom: 8px;
-      font-weight: bold;
+      color: #555;
+      font-size: 14px;
     }
 
-    input[type="email"],
-    input[type="password"] {
+    .login-container input[type="email"],
+    .login-container input[type="password"] {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      box-sizing: border-box;
     }
 
-    button {
+    .login-container input:focus {
+      border-color: #35b4c6;
+      outline: none;
+    }
+
+    .login-container button {
       width: 100%;
-      padding: 10px;
-      background-color: #007bff;
-      border: none;
-      border-radius: 4px;
+      padding: 12px;
+      background-color: #35b4c6;
       color: white;
+      border: none;
+      border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    button:hover {
+    .login-container button:hover {
       background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-<form action="dashboard.php" method="POST">
-    <label>Email :</label>
-    <input type="email" name="email" required>
+  <div class="login-container">
+    <form action="dashboard.php" method="POST">
+      <label>Email :</label>
+      <input type="email" name="email" required>
 
-    <label>Mot de passe :</label>
-    <input type="password" name="password" required>
+      <label>Mot de passe :</label>
+      <input type="password" name="password" required>
 
-    <button type="submit">Se connecter</button>
-</form>
-
+      <button type="submit">Se connecter</button>
+    </form>
+  </div>
 </body>
 </html>
