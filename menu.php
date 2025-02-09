@@ -196,7 +196,7 @@
             </div>
                 <div class="menu-item">
                 <a href="modifier_profil.php">
-                    <i class="fas fa-user-edit"></i> Compléter mon profil
+                    <i class="fas fa-user-edit"></i> Modifier mon profil
                 </a>
                 <div class="conseil">Assurez-vous que votre profil est à jour.</div>
             </div>

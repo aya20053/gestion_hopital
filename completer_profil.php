@@ -73,10 +73,13 @@
       background-color: #529ba4;
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 </head>
 <body>
   <form action="maj_profil.php" method="POST">
-  <legend>    <h1>Completer le Profil</h1>
+  <legend>
+  <h1><i class="fas fa-user-edit"></i> Compléter le Profil</h1>
   </legend>
     <label>Date de Naissance :</label>
     <input type="date" name="date_naissance" required>

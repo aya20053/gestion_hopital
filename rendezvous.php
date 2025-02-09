@@ -133,8 +133,8 @@ input,.btn {
 
 <div class="form-container">
     <form method="post" action="">
-        <LEgend><h2>Ajouter un Rendez-vous</h2>
-        </LEgend>
+    <legend><h2><i class="fas fa-calendar-plus"></i> Ajouter un Rendez-vous</h2></legend>
+    </LEgend>
         <input type="date" name="date" required>
         <input type="time" name="heure" required>
         <button type="submit" name="submit" class="btn">Ajouter</button>
@@ -142,8 +142,7 @@ input,.btn {
 </div>
 
 <div class="historique">
-<h2>Historique des Rendez-vous</h2>
-
+<h2><i class="fas fa-history"></i> Historique des Rendez-vous</h2>
     <?php if (isset($result_rendezvous) && $result_rendezvous->num_rows > 0): ?>
         <?php while ($row = $result_rendezvous->fetch_assoc()): ?>
             <p><strong>Date :</strong> <?php echo htmlspecialchars($row['date']); ?>, 

@@ -112,6 +112,13 @@ $conn->close();
       backdrop-filter: blur(5px); /* Effet de flou */
       overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
     }
+    h1 {
+    text-align: center; /* Centre le texte */
+    width: 100%; /* Assure qu'il prend toute la largeur */
+}
+
+
+    
 
     label {
       display: block;
@@ -166,8 +173,8 @@ $conn->close();
     <?php endif; ?>
 
     <form action="modifier_profil.php" method="POST">
-        <legend>    <h1>Modifier le Profil</h1>
-        </legend>
+    <h1><i class="fas fa-user-edit"></i> Modifier le Profil</h1>
+
         <label for="nom">Nom :</label>
         <input type="text" id="nom" name="nom" value="<?= htmlspecialchars($user['nom'] ?? ''); ?>" required>
 

@@ -1,5 +1,7 @@
 <?php
 session_start();
+ob_start();
+
 include 'menu.php';
 
 // Connexion à la base de données
@@ -21,8 +23,10 @@ if (!isset($_SESSION['user_id'])) {
 $femme_id = $_SESSION['user_id'];
 
 // Récupérer le nom de la femme enceinte
-$sql_patient = "SELECT CONCAT(prenom, ' ', nom) AS patient FROM femmes_enceintes WHERE id = '$femme_id'";
-$result_patient = $conn->query($sql_patient);
+$sql_patient = $conn->prepare("SELECT CONCAT(prenom, ' ', nom) AS patient FROM femmes_enceintes WHERE id = ?");
+$sql_patient->bind_param("i", $femme_id);
+$sql_patient->execute();
+$result_patient = $sql_patient->get_result();
 $patient_name = $result_patient->num_rows > 0 ? $result_patient->fetch_assoc()['patient'] : "";
 
 // Récupérer les médecins disponibles
@@ -31,28 +35,68 @@ $result_medecins = $conn->query($sql_medecins);
 
 // Envoi du message
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    $message = $conn->real_escape_string($_POST['message']);
-    $medecin_id = $_POST['medecin_id'];
-    
-    $sql_message = "INSERT INTO messages (message, femme_id, medecin_id) 
-                    VALUES ('$message', '$femme_id', '$medecin_id')";
-    
-    if ($conn->query($sql_message) === TRUE) {
-        echo "<p>Message envoyé avec succès !</p>";
+    $message = $conn->real_escape_string(trim($_POST['message']));
+    $medecin_id = (int)$_POST['medecin_id'];
+
+    // Vérifier si le message a déjà été envoyé
+    $sql_check = $conn->prepare("SELECT * FROM messages WHERE message = ? AND femme_id = ? AND medecin_id = ?");
+    $sql_check->bind_param("sii", $message, $femme_id, $medecin_id);
+    $sql_check->execute();
+    $result_check = $sql_check->get_result();
+
+    if ($result_check->num_rows == 0) {
+        $sql_message = $conn->prepare("INSERT INTO messages (message, femme_id, medecin_id) VALUES (?, ?, ?)");
+        $sql_message->bind_param("sii", $message, $femme_id, $medecin_id);
+        
+        if ($sql_message->execute()) {
+            echo "<p>Message envoyé avec succès !</p>";
+        } else {
+            echo "<p>Erreur lors de l'envoi du message : " . $conn->error . "</p>";
+        }
     } else {
-        echo "<p>Erreur lors de l'envoi du message : " . $conn->error . "</p>";
+        echo "<p>Le message est déjà envoyé.</p>";
     }
 }
 
 // Historique des messages
-$sql_historique = "SELECT m.message, m.date_envoi, md.nom AS medecin 
-                   FROM messages m 
-                   JOIN medecins md ON m.medecin_id = md.id 
-                   WHERE m.femme_id = '$femme_id' 
-                   ORDER BY m.date_envoi DESC";
-$result_historique = $conn->query($sql_historique);
+$sql_historique = $conn->prepare("SELECT m.id, m.message, m.date_envoi, m.medecin_id, md.nom AS medecin FROM messages m JOIN medecins md ON m.medecin_id = md.id WHERE m.femme_id = ? ORDER BY m.date_envoi DESC");
+$sql_historique->bind_param("i", $femme_id);
+$sql_historique->execute();
+$result_historique = $sql_historique->get_result();
 
-$conn->close();
+// Mettre à jour le message
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_message'])) {
+    // Récupérer l'ID du message à modifier depuis l'URL
+    $message_id = (int)$_GET['edit'];
+    $new_message = $conn->real_escape_string(trim($_POST['message']));
+    $new_medecin_id = (int)$_POST['medecin_id'];
+
+    $sql_update_message = $conn->prepare("UPDATE messages SET message = ?, medecin_id = ? WHERE id = ? AND femme_id = ?");
+    $sql_update_message->bind_param("siii", $new_message, $new_medecin_id, $message_id, $femme_id);
+
+   
+    if ($sql_update_message->execute()) {
+        // Redirection après mise à jour
+        header("Location: messagerie.php");
+        exit();
+    } else {
+        echo "<p>Erreur lors de la mise à jour du message : " . $conn->error . "</p>";
+    }
+}
+
+// Supprimer un message
+if (isset($_GET['delete'])) {
+    $message_id = (int)$_GET['delete'];
+
+    $sql_delete_message = $conn->prepare("DELETE FROM messages WHERE id = ? AND femme_id = ?");
+    $sql_delete_message->bind_param("ii", $message_id, $femme_id);
+
+    if ($sql_delete_message->execute()) {
+        echo "<p>Message supprimé avec succès !</p>";
+    } else {
+        echo "<p>Erreur lors de la suppression du message : " . $conn->error . "</p>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -63,14 +107,12 @@ $conn->close();
     <title>Messagerie</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-         body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    
-      background-image: url('1.jpg'); /* Remplacez par le chemin de votre image */
-      background-size: cover;
-      background-position: center;
-      overflow: hidden; /* Empêche le défilement de la page */
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
         .form-container {
             background: white;
             padding: 25px;
@@ -80,7 +122,6 @@ $conn->close();
             max-width: 600px;
             margin: 20px auto;
         }
-
         .form-container input, .form-container textarea, .form-container select, .form-container button {
             width: 100%;
             padding: 12px;
@@ -89,34 +130,98 @@ $conn->close();
             border: 1px solid #ccc;
             font-size: 16px;
         }
+        .form-container button {
+          
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    transition: 0.3s;
+    background: #35b4c6;
+    color: white;
+    cursor: pointer;
+}
 
+.form-container button :hover {
+    background: #1e88e5;
+}
+        
         .message-history {
-            margin-top: 30px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
+    margin: 20px;
+    background: #f9f9f9;
 
-        .message-history p {
-            background: #f9f9f9;
-            padding: 10px;
-            margin: 10px 0;
-            border-left: 5px solid #66bb6a;
-            font-size: 16px;
-        }
+}
+.message-history h1 ,h2{
+    text-align: center; /* Centre le texte du titre */
+    margin: 20px 0; /* Ajoute un espacement au-dessus et en dessous du titre */
+}
+
+.message-item {
+    background: #f9f9f9;
+    padding: 10px; /* Espacement interne */
+    border-left: 5px solid #66bb6a;
+    display: flex;
+    justify-content: space-between; /* Espace entre le contenu et les boutons */
+    align-items: flex-start; /* Alignement en haut */
+    margin-bottom: 0; /* Pas de marge entre les messages */
+}
+
+.message-content {
+    flex: 1; /* Prendre tout l'espace disponible */
+}
+
+.btn-container {
+    display: flex; /* Utiliser flexbox pour les boutons */
+    gap: 10px; /* Espacement entre les boutons */
+}
+
+.btn-edit, .btn-delete {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-edit {
+    background-color: #66bb6a; /* Couleur du bouton Modifier */
+}
+
+.btn-edit:hover {
+    background-color: #4caf50; /* Couleur au survol */
+}
+
+.btn-delete {
+    background-color: #f44336; /* Couleur du bouton Supprimer */
+}
+
+.btn-delete:hover {
+    background-color: #e53935; /* Couleur au survol */
+}
     </style>
+    <script>
+        function toggleForm(message_id) {
+            let forms = document.querySelectorAll('.form-container');
+            forms.forEach(form => form.style.display = 'none');
+
+            let formToShow = document.getElementById('form-modification-' + message_id);
+            if (formToShow) {
+                formToShow.style.display = 'block';
+            }
+        }
+    </script>
 </head>
 <body>
 
-<div class="form-container">
+<div id="form-message" class="form-container">
     <form method="post" action="">
-      <legend><h2>Envoyer un message</h2>
-      </legend>
-        <select name="medecin_id" required>
+    <legend><h2><i class="fas fa-paper-plane"></i> Envoyer un message</h2></legend>
+    <select name="medecin_id" required>
             <option value="">Choisissez un médecin</option>
             <?php while ($medecin = $result_medecins->fetch_assoc()): ?>
-                <option value="<?php echo $medecin['id']; ?>"><?php echo $medecin['nom']; ?></option>
+                <option value="<?php echo $medecin['id']; ?>"><?php echo htmlspecialchars($medecin['nom']); ?></option>
             <?php endwhile; ?>
         </select>
         
@@ -127,18 +232,49 @@ $conn->close();
 </div>
 
 <div class="message-history">
-<h2>Historique des Messages</h2>
-
+<h2><i class="fas fa-history"></i> Historique des Messages</h2>
     <?php if ($result_historique->num_rows > 0): ?>
         <?php while ($row = $result_historique->fetch_assoc()): ?>
-            <p><strong>Le <?php echo $row['date_envoi']; ?></strong> :<br>
-               Message à <?php echo htmlspecialchars($row['medecin']); ?> :<br>
-               "<?php echo htmlspecialchars($row['message']); ?>"</p>
+            <div class="message-item">
+                <div class="message-content">
+                    <strong>Le <?php echo htmlspecialchars($row['date_envoi']); ?></strong> :<br>
+                    Message à <?php echo htmlspecialchars($row['medecin']); ?> :<br>
+                    "<?php echo htmlspecialchars($row['message']); ?>"
+                </div>
+                <div class="btn-container">
+                    <a href="javascript:void(0);" onclick="toggleForm(<?php echo $row['id']; ?>)" class="btn-edit">
+                        <i class="fas fa-edit"></i> Modifier
+                    </a>
+                    <a href="messagerie.php?delete=<?php echo $row['id']; ?>" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce message ?')">
+                        <i class="fas fa-trash"></i> Supprimer
+                    </a>
+                </div>
+                <div id="form-modification-<?php echo $row['id']; ?>" class="form-container" style="display:none;">
+                    <h2>Modifier le message</h2>
+                    <form method="post" action="messagerie.php?edit=<?php echo $row['id']; ?>">
+                        <select name="medecin_id" required>
+                            <option value="">Choisissez un médecin</option>
+                            <?php
+                            // Réinitialiser le pointeur des résultats des médecins
+                            $result_medecins->data_seek(0);
+                            while ($medecin = $result_medecins->fetch_assoc()): ?>
+                                <option value="<?php echo $medecin['id']; ?>" <?php echo ($medecin['id'] == $row['medecin_id']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($medecin['nom']); ?>
+                                </option>
+                            <?php endwhile; ?>
+                        </select>
+                        <textarea name="message" rows="5" required><?php echo htmlspecialchars($row['message']); ?></textarea>
+                        <button type="submit" name="update_message">Mettre à jour</button>
+                    </form>
+                </div>
+            </div>
         <?php endwhile; ?>
     <?php else: ?>
         <p>Aucun message trouvé.</p>
     <?php endif; ?>
 </div>
-
+<?php
+$conn->close();
+?>
 </body>
 </html>
