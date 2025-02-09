@@ -23,19 +23,21 @@
             left: -250px; /* Cache le menu par défaut */
             width: 250px;
             height: 100vh;
-            background-color: #2c3e50;
+            background-color:#529ba4 ;
             color: white;
             transition: left 0.3s ease;
             z-index: 1000;
         }
-
+        .menu-item img {
+    max-width: 100%; /* Adaptation à la taille du conteneur */
+    height: auto; /* Conserve les proportions */
+}
         .menu.open {
             left: 0; /* Affiche le menu */
         }
 
         .menu-header {
             padding: 20px;
-            background-color: #34495e;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -91,7 +93,7 @@
             position: fixed;
             top: 20px;
             left: 20px;
-            background-color: #2c3e50;
+            background-color: #529ba4 ;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -106,7 +108,7 @@
         }
 
         .open-menu-btn:hover {
-            background-color: #34495e;
+            background-color:#336761;
         }
     </style>
 </head>
@@ -122,7 +124,10 @@
            
         </div>
         <div class="menu-items">
-            <div class="menu-item">
+        <div class="menu-item">
+            <img src="logo3.png" alt="Logo Hôpital" />
+            </div>
+                <div class="menu-item">
                 <a href="modifier_profil.php">
                     <i class="fas fa-user-edit"></i> Compléter mon profil
                 </a>
