@@ -95,7 +95,7 @@ $conn->close();
       display: flex;
       justify-content: center;
       align-items: center;
-      background-image: url('cover.jpg'); /* Remplacez par le chemin de votre image */
+      background-image: url('1.jpg'); /* Remplacez par le chemin de votre image */
       background-size: cover;
       background-position: center;
       overflow: hidden; /* Empêche le défilement de la page */

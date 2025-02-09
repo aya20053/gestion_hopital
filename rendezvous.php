@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'menu.php';
 
 // Connexion à la base de données
 $host = "localhost";
@@ -49,58 +50,82 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rendez-vous</title>
     <style>
-        body {
-            font-family: "Arial", sans-serif;
-            background-color: #f4f4f4;
-            color: black;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+      background-image: url('1.jpg'); /* Remplacez par le chemin de votre image */
+      background-size: cover;
+      background-position: center;
+      overflow: hidden; /* Empêche le défilement de la page */
+    }
 
-        .form-container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
-            margin-bottom: 20px;
-        }
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+}
 
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-        }
+h2 {
+    text-align: center;
+}
 
-        button {
-            background: #2575fc;
-            color: white;
-            cursor: pointer;
-            transition: 0.3s;
-            border: none;
-        }
+.form-container {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto; /* Centrer uniquement le formulaire */
+}
 
-        button:hover {
-            background: #6a11cb;
-        }
+input,.btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: 0.3s;
+}
 
-        .historique {
-            width: 100%;
-            max-width: 600px;
-            text-align: left;
-        }
+.btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    transition: 0.3s;
+    background: #35b4c6;
+    color: white;
+    cursor: pointer;
+}
 
-        .historique p {
-            margin: 5px 0;
-            font-size: 16px;
-        }
+.btn:hover {
+    background: #1e88e5;
+}
+
+
+.historique {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    margin-top: 20px;
+}
+
+.historique p {
+    margin: 10px 0;
+    font-size: 16px;
+    padding: 10px;
+    background: #f1f8e9;
+    border-left: 5px solid #66bb6a;
+    border-radius: 5px;
+}
+
     </style>
 </head>
 <body>
@@ -110,8 +135,8 @@ $conn->close();
     <form method="post" action="">
         <input type="date" name="date" required>
         <input type="time" name="heure" required>
-        <button type="submit" name="submit">Ajouter</button>
-    </form>
+        <button type="submit" name="submit" class="btn">Ajouter</button>
+        </form>
 </div>
 
 <h2>Historique des Rendez-vous</h2>

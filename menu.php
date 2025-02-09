@@ -6,16 +6,7 @@
     <title>Menu à Gauche</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color:#529ba4 ;
-    background-image: url('logo2.png'); /* Remplacez par le chemin de votre image */
-    background-size: 50%;   background-position: center; /* Centre l'image */
-    background-repeat: no-repeat; /* Empêche la répétition de l'image */
-    background-attachment: fixed; /* Fixe l'image pour qu'elle ne défile pas avec la page */
-}
+      
         /* Styles pour le menu */
         .menu {
             position: fixed;
@@ -28,6 +19,7 @@
             transition: left 0.3s ease;
             z-index: 1000;
         }
+   
         .menu-item img {
     max-width: 100%; /* Adaptation à la taille du conteneur */
     height: auto; /* Conserve les proportions */
@@ -72,10 +64,7 @@
             font-size: 16px;
         }
 
-        .menu-item a:hover {
-            color: #1abc9c;
-        }
-
+       
         .menu-item i {
             margin-right: 10px;
             font-size: 18px;
@@ -109,7 +98,85 @@
 
         .open-menu-btn:hover {
             background-color:#336761;
+        }        /* Styles pour le menu */
+        .menu {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100vh;
+            background-color: #336761;
+            color: white;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding-top: 20px;
         }
+
+        .menu.open {
+            left: 0;
+        }
+
+        .menu-items {
+            padding: 10px;
+        }
+
+        .menu-item {
+            margin-bottom: -6px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .menu-item a {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold; /* Texte en gras */
+            transition: color 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.2); /* Effet survol */
+        }
+
+        .menu-item i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .conseil {
+            margin-top: 3px;
+            font-size: 12px;
+            color: #bdc3c7;
+            padding-left: 28px;
+        }
+
+        /* Bouton pour ouvrir le menu */
+        .open-menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #336761;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: left 0.3s ease, background 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .open-menu-btn.menu-open {
+            left: 270px;
+        }
+
+        .open-menu-btn:hover {
+            background-color: #1f4a4d;
+        }
+
     </style>
 </head>
 <body>
@@ -125,7 +192,7 @@
         </div>
         <div class="menu-items">
         <div class="menu-item">
-            <img src="logo3.png" alt="Logo Hôpital" />
+            <img src="lo.png" alt="Logo Hôpital" />
             </div>
                 <div class="menu-item">
                 <a href="modifier_profil.php">
