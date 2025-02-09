@@ -70,12 +70,14 @@
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #529ba4;
     }
   </style>
 </head>
 <body>
   <form action="maj_profil.php" method="POST">
+  <legend>    <h1>Completer le Profil</h1>
+  </legend>
     <label>Date de Naissance :</label>
     <input type="date" name="date_naissance" required>
 

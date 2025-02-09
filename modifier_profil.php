@@ -1,6 +1,7 @@
+
 <?php
 session_start();
-
+include 'menu.php';
 // Connexion à la base de données
 $host = "localhost";
 $user = "root";
@@ -57,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         WHERE id = ?";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssssssi", 
+    $stmt->bind_param("ssssssssssssi", 
         $nom, $prenom, $email, $date_naissance, $telephone, $adresse, $groupe_sanguin, 
         $date_dernieres_regles, $date_prevue_accouchement, $nombre_grossesses_precedentes, 
         $antecedents_medicaux, $allergies, $user_id);
@@ -70,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 
     // Rediriger pour éviter la soumission multiple du formulaire
-    header('Location: modifier_profil.php');
+   
     exit;
 }
 
@@ -83,9 +84,79 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier le Profil</title>
     <link rel="stylesheet" href="styles.css">
+
+    
+    <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('cover.jpg'); /* Remplacez par le chemin de votre image */
+      background-size: cover;
+      background-position: center;
+      overflow: hidden; /* Empêche le défilement de la page */
+    }
+
+    form {
+      max-width: 700px;
+      width: 90%; /* Ajustement pour les petits écrans */
+      max-height: 80vh; /* Limite la hauteur du formulaire */
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.4); /* Transparence */
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px); /* Effet de flou */
+      overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 25px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      box-sizing: border-box;
+      background-color: rgba(255, 255, 255, 0.8); /* Légère transparence pour les champs */
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #35b4c6;
+      outline: none;
+    }
+
+    button {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: #35b4c6;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color:#529ba4;
+    }
+  </style>
 </head>
 <body>
-    <h1>Modifier le Profil</h1>
 
     <?php if (isset($_SESSION['message'])): ?>
         <div class="alert">
@@ -95,6 +166,8 @@ $conn->close();
     <?php endif; ?>
 
     <form action="modifier_profil.php" method="POST">
+        <legend>    <h1>Modifier le Profil</h1>
+        </legend>
         <label for="nom">Nom :</label>
         <input type="text" id="nom" name="nom" value="<?= htmlspecialchars($user['nom'] ?? ''); ?>" required>
 

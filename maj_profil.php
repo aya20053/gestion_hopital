@@ -36,7 +36,8 @@ $sql = "UPDATE femmes_enceintes SET
     WHERE id=$user_id";
 
 if ($conn->query($sql) === TRUE) {
-    $_SESSION['profil_complet'] = 1; // Mise à jour de la session
+// Après avoir mis à jour le profil dans la base de données
+$_SESSION['profil_complet'] = 1; // 1 signifie que le profil est complet
     echo "Profil mis à jour avec succès. <a href='profil.php'>Retour au tableau de bord</a>";
 } else {
     echo "Erreur : " . $conn->error;

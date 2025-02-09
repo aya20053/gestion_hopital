@@ -6,6 +6,16 @@
     <title>Menu à Gauche</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color:#529ba4 ;
+    background-image: url('logo2.png'); /* Remplacez par le chemin de votre image */
+    background-size: 50%;   background-position: center; /* Centre l'image */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    background-attachment: fixed; /* Fixe l'image pour qu'elle ne défile pas avec la page */
+}
         /* Styles pour le menu */
         .menu {
             position: fixed;
