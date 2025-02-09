@@ -27,7 +27,10 @@
       max-width: 400px;
       backdrop-filter: blur(5px); /* Effet de flou */
     }
-
+  h2 {
+            text-align: center;
+            font-size: 30px; /* Ajuste cette valeur pour la taille que tu souhaites */
+          }
     .login-container label {
       display: block;
       margin-bottom: 8px;
@@ -67,18 +70,25 @@
       background-color: #0056b3;
     }
   </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 </head>
 <body>
   <div class="login-container">
     <form action="dashboard.php" method="POST">
-      <label>Email :</label>
+      <h2><i class="fas fa-sign-in-alt"></i> Se connecter</h2>
+
+      <label><i class="fas fa-envelope"></i> Email :</label>
       <input type="email" name="email" required>
 
-      <label>Mot de passe :</label>
+      <label><i class="fas fa-lock"></i> Mot de passe :</label>
       <input type="password" name="password" required>
 
-      <button type="submit">Se connecter</button>
+      <button type="submit"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
+
+      <p>Vous n'avez pas de compte ? <a href="inscription.php">Inscrivez-vous</a></p>
     </form>
   </div>
 </body>
+
 </html>

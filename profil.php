@@ -1,7 +1,7 @@
 <?php
+ob_start();
 session_start();
 include 'menu.php';
-
 // Connexion à la base de données
 $host = "localhost";
 $user = "root";
@@ -61,7 +61,7 @@ $conn->close();
         .welcome-message {
             font-size: 30px;
             font-weight: bold;
-            color: #2c3e50;
+            color: #35b4c6;
             margin-bottom: -200px;
             text-align: right;
         }
@@ -69,7 +69,7 @@ $conn->close();
 </head>
 <body>
     <div class="welcome-message">
-        Bienvenue, <?= htmlspecialchars($prenom) ?> <?= htmlspecialchars($nom) ?> !
+        Bienvenue, <?= htmlspecialchars($prenom) ?> <?= htmlspecialchars($nom) ?> !....
     </div>
 
     <?php if ($profilComplet === 0): ?>

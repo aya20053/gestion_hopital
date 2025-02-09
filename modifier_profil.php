@@ -1,8 +1,8 @@
 
 <?php
+ob_start();
 session_start();
-include 'menu.php';
-// Connexion à la base de données
+include 'menu.php';// Connexion à la base de données
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -63,13 +63,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $date_dernieres_regles, $date_prevue_accouchement, $nombre_grossesses_precedentes, 
         $antecedents_medicaux, $allergies, $user_id);
 
-    if ($stmt->execute()) {
-        $_SESSION['message'] = 'Profil mis à jour avec succès.';
-    } else {
-        $_SESSION['message'] = 'Erreur lors de la mise à jour du profil.';
-    }
-    $stmt->close();
-
+        if ($stmt->execute()) {
+          $_SESSION['message'] = '.';
+          header('Location: profil.php'); // Redirige vers la page de profil
+          exit(); // Assure-toi d'arrêter l'exécution après la redirection
+      } else {
+          $_SESSION['message'] = 'Erreur lors de la mise à jour du profil.';
+      }
+      $stmt->close();
+      
     // Rediriger pour éviter la soumission multiple du formulaire
    
     exit;

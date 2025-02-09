@@ -2,7 +2,6 @@
 ob_start();
 session_start();
 include 'menu.php';
-
 // Connexion à la base de données
 $host = "localhost";
 $user = "root";

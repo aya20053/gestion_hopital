@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'menu.php';
-
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -60,7 +59,8 @@ $result_notes = $conn->query($sql_notes);
 <body>
 
 <div class="container">
-    <h2 class="text-center mb-4">📋 Suivi des Notes Médicales</h2>
+    <h2 class="text-center mb-4">     <i class="fas fa-notes-medical"></i> Suivi des Notes Médicales
+    </h2>
 
     <?php if ($result_notes && $result_notes->num_rows > 0): ?>
         <?php while ($row = $result_notes->fetch_assoc()): ?>
