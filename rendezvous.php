@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 include 'menu.php';
 
@@ -130,17 +131,19 @@ input,.btn {
 </head>
 <body>
 
-<h2>Ajouter un Rendez-vous</h2>
 <div class="form-container">
     <form method="post" action="">
+        <LEgend><h2>Ajouter un Rendez-vous</h2>
+        </LEgend>
         <input type="date" name="date" required>
         <input type="time" name="heure" required>
         <button type="submit" name="submit" class="btn">Ajouter</button>
         </form>
 </div>
 
-<h2>Historique des Rendez-vous</h2>
 <div class="historique">
+<h2>Historique des Rendez-vous</h2>
+
     <?php if (isset($result_rendezvous) && $result_rendezvous->num_rows > 0): ?>
         <?php while ($row = $result_rendezvous->fetch_assoc()): ?>
             <p><strong>Date :</strong> <?php echo htmlspecialchars($row['date']); ?>, 
