@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nom = trim($_POST['nom']);
     $prenom = trim($_POST['prenom']);
     $email = trim($_POST['email']);
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // Vérifier que les champs obligatoires ne sont pas vides
     if (empty($nom) || empty($prenom) || empty($email) || empty($password)) {
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Erreur lors de l'inscription : " . $conn->error;
     }
-
+ 
     $stmt->close();
 }
 

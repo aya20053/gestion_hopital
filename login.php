@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion Femme Enceinte</title>
+  <title>Connexion </title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -13,13 +14,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-image: url('cover.jpg'); /* Remplacez par le chemin de votre image */
+      background-image: url('l.jpg'); /* Remplacez par le chemin de votre image */
       background-size: cover;
       background-position: center;
     }
 
     .login-container {
-      background-color: rgba(255, 255, 255, 0.4); /* Transparence */
+      background-color: rgba(255, 255, 255, 0.8); /* Transparence améliorée */
       padding: 40px;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -27,10 +28,13 @@
       max-width: 400px;
       backdrop-filter: blur(5px); /* Effet de flou */
     }
-  h2 {
-            text-align: center;
-            font-size: 30px; /* Ajuste cette valeur pour la taille que tu souhaites */
-          }
+
+    h2 {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
     .login-container label {
       display: block;
       margin-bottom: 8px;
@@ -69,10 +73,26 @@
     .login-container button:hover {
       background-color: #0056b3;
     }
-  </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+    .login-container p {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .login-container a {
+      color: #35b4c6;
+      text-decoration: none;
+    }
+
+    .login-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
+
 <body>
   <div class="login-container">
     <form action="dashboard.php" method="POST">
@@ -86,9 +106,10 @@
 
       <button type="submit"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
 
-      <p>Vous n'avez pas de compte ? <a href="inscription.php">Inscrivez-vous</a></p>
+      <p>Vous n'avez pas de compte ? <a href="inscription.html">Inscrivez-vous</a></p>
     </form>
   </div>
 </body>
+
 
 </html>
