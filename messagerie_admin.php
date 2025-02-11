@@ -1,5 +1,8 @@
 <?php
-session_start(); // Start the session
+session_start();
+ob_start();
+
+include 'menu_admin.php';
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
