@@ -29,37 +29,35 @@ try {
 if (isset($_GET['search'])) {
     $search = trim($_GET['search']);
     $query = "
-        SELECT * FROM femmes_enceintes
-        WHERE isadmin = 0 AND (
-            nom LIKE :search OR
-            prenom LIKE :search OR
-            email LIKE :search OR
-            telephone LIKE :search OR
-            date_naissance LIKE :search OR
-            adresse LIKE :search OR
-            groupe_sanguin LIKE :search OR
-            date_dernieres_regles LIKE :search OR
-            date_prevue_accouchement LIKE :search OR
-            nombre_grossesses_precedentes LIKE :search OR
-            antecedents_medicaux LIKE :search OR
-            allergies LIKE :search
-        )
+        SELECT rendezvous.*, femmes_enceintes.nom AS patient_nom, femmes_enceintes.prenom AS patient_prenom
+        FROM rendezvous
+        LEFT JOIN femmes_enceintes ON rendezvous.patient_id = femmes_enceintes.id
+        WHERE rendezvous.id LIKE :search OR
+              rendezvous.date LIKE :search OR
+              rendezvous.heure LIKE :search OR
+              rendezvous.statut LIKE :search OR
+              femmes_enceintes.nom LIKE :search OR
+              femmes_enceintes.prenom LIKE :search
     ";
     $stmt = $pdo->prepare($query);
     $stmt->execute(['search' => "%$search%"]);
-    $patients = $stmt->fetchAll();
+    $rendezvous = $stmt->fetchAll();
 
     // Retourner les résultats au format JSON
     header('Content-Type: application/json');
-    echo json_encode($patients);
+    echo json_encode($rendezvous);
     exit();
 }
 
-// Récupérer tous les patients (isadmin = 0) par défaut
-$query = "SELECT * FROM femmes_enceintes WHERE isadmin = 0";
+// Récupérer tous les rendez-vous par défaut
+$query = "
+    SELECT rendezvous.*, femmes_enceintes.nom AS patient_nom, femmes_enceintes.prenom AS patient_prenom
+    FROM rendezvous
+    LEFT JOIN femmes_enceintes ON rendezvous.patient_id = femmes_enceintes.id
+";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
-$patients = $stmt->fetchAll();
+$rendezvous = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +65,7 @@ $patients = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Patients</title>
+    <title>Gestion des Rendez-vous</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
@@ -146,10 +144,6 @@ $patients = $stmt->fetchAll();
             background-color: #e74c3c;
         }
 
-        .action-buttons .details {
-            background-color: green;
-        }
-
         .action-buttons a:hover {
             opacity: 0.9;
         }
@@ -157,81 +151,85 @@ $patients = $stmt->fetchAll();
 </head>
 <body>
     <div class="container">
-        <h1><i class="fas fa-users"></i> Liste des Patients</h1>
+        <h1><i class="fas fa-calendar-alt"></i> Gestion des Rendez-vous</h1>
 
         <!-- Champ de recherche dynamique -->
         <div class="search-form">
-            <input type="text" id="search" placeholder="Rechercher.....">
+            <input type="text" id="search" placeholder="Rechercher par date, heure, patient, statut, etc.">
         </div>
 
-        <!-- Tableau des patients -->
-        <table id="patients-table">
+        <!-- Tableau des rendez-vous -->
+        <table id="rendezvous-table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Email</th>
-                    <th>Téléphone</th>
+                    <th>Date</th>
+                    <th>Heure</th>
+                    <th>Patient</th>
+                    <th>Statut</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($patients as $patient): ?>
+                <?php foreach ($rendezvous as $rdv): ?>
                     <tr>
-                        <td><?= htmlspecialchars($patient['id']) ?></td>
-                        <td><?= htmlspecialchars($patient['nom']) ?></td>
-                        <td><?= htmlspecialchars($patient['prenom']) ?></td>
-                        <td><?= htmlspecialchars($patient['email']) ?></td>
-                        <td><?= htmlspecialchars($patient['telephone']) ?></td>
+                        <td><?= htmlspecialchars($rdv['id']) ?></td>
+                        <td><?= htmlspecialchars($rdv['date']) ?></td>
+                        <td><?= htmlspecialchars($rdv['heure']) ?></td>
+                        <td><?= htmlspecialchars($rdv['patient_nom']) ?> <?= htmlspecialchars($rdv['patient_prenom']) ?></td>
+                        <td><?= htmlspecialchars($rdv['statut']) ?></td>
                         <td class="action-buttons">
-                            <!-- Bouton Détails -->
-                            <a href="details_patient.php?id=<?= $patient['id'] ?>" class="details">
-                                <i class="fas fa-eye"></i> Détails
-                            </a>
+    <!-- Bouton Modifier le statut -->
+    <a href="#" class="edit" onclick="updateStatus(<?= $rdv['id'] ?>, '<?= $rdv['statut'] === 'En attente' ? 'Confirmé' : 'En attente' ?>')">
+        <i class="fas fa-edit"></i> <?= $rdv['statut'] === 'En attente' ? 'Confirmer' : 'Revenir à En attente' ?>
+    </a>
 
-                            <!-- Bouton Modifier -->
-                            <a href="edit_patient.php?id=<?= $patient['id'] ?>" class="edit">
-                                <i class="fas fa-edit"></i> Modifier
-                            </a>
-
-                            <!-- Bouton Supprimer -->
-                            <a href="delete_patient.php?id=<?= $patient['id'] ?>" class="delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce patient ?');">
-                                <i class="fas fa-trash"></i> Supprimer
-                            </a>
-                        </td>
+    <!-- Bouton Supprimer -->
+    <a href="delete_rendezvous.php?id=<?= $rdv['id'] ?>" class="delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">
+        <i class="fas fa-trash"></i> Supprimer
+    </a>
+</td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-
+  <script> function updateStatus(id, newStatus) {
+    fetch(`update_status.php?id=${id}&status=${newStatus}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Actualiser la page ou modifier l'état directement dans le tableau
+                location.reload(); // Recharger la page pour voir les changements
+            } else {
+                alert('Erreur lors de la mise à jour du statut.');
+            }
+        })
+        .catch(error => console.error('Erreur lors de la mise à jour :', error));
+}</script> 
     <script>
         // Fonction pour effectuer la recherche dynamique
-        function searchPatients(query) {
-            fetch(`patients.php?search=${query}`)
+        function searchRendezVous(query) {
+            fetch(`rendezvous_admin.php?search=${query}`)
                 .then(response => response.json())
                 .then(data => {
-                    const tbody = document.querySelector("#patients-table tbody");
+                    const tbody = document.querySelector("#rendezvous-table tbody");
                     tbody.innerHTML = ""; // Vider le tableau actuel
 
                     // Ajouter les nouveaux résultats
-                    data.forEach(patient => {
+                    data.forEach(rdv => {
                         const row = `
                             <tr>
-                                <td>${patient.id}</td>
-                                <td>${patient.nom}</td>
-                                <td>${patient.prenom}</td>
-                                <td>${patient.email}</td>
-                                <td>${patient.telephone}</td>
+                                <td>${rdv.id}</td>
+                                <td>${rdv.date}</td>
+                                <td>${rdv.heure}</td>
+                                <td>${rdv.patient_nom} ${rdv.patient_prenom}</td>
+                                <td>${rdv.statut}</td>
                                 <td class="action-buttons">
-                                    <a href="details_patient.php?id=${patient.id}" class="details">
-                                        <i class="fas fa-eye"></i> Détails
-                                    </a>
-                                    <a href="edit_patient.php?id=${patient.id}" class="edit">
+                                    <a href="edit_rendezvous.php?id=${rdv.id}" class="edit">
                                         <i class="fas fa-edit"></i> Modifier
                                     </a>
-                                    <a href="delete_patient.php?id=${patient.id}" class="delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce patient ?');">
+                                    <a href="delete_rendezvous.php?id=${rdv.id}" class="delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">
                                         <i class="fas fa-trash"></i> Supprimer
                                     </a>
                                 </td>
@@ -247,10 +245,10 @@ $patients = $stmt->fetchAll();
         document.getElementById('search').addEventListener('input', function (e) {
             const query = e.target.value.trim();
             if (query.length >= 2) { // Rechercher uniquement si 2 caractères ou plus
-                searchPatients(query);
+                searchRendezVous(query);
             } else if (query.length === 0) {
-                // Recharger tous les patients si le champ est vide
-                searchPatients('');
+                // Recharger tous les rendez-vous si le champ est vide
+                searchRendezVous('');
             }
         });
     </script>

@@ -203,7 +203,7 @@
 
             <!-- Section Rendez-vous -->
             <div class="menu-item">
-                <a href="rendezvous.php">
+                <a href="rendezvous_admin.php">
                     <i class="fas fa-calendar-alt"></i> Rendez-vous
                 </a>
                 <div class="conseil">Consultez les rendez-vous programmés.</div>
@@ -211,7 +211,7 @@
 
             <!-- Section Messages -->
             <div class="menu-item">
-                <a href="messagerie.php">
+                <a href="messagerie_admin.php">
                     <i class="fas fa-envelope"></i> Messages
                 </a>
                 <div class="conseil">Répondez aux messages des patients.</div>

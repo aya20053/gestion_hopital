@@ -58,8 +58,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     }
 }
 
-// Historique des messages
-$sql_historique = $conn->prepare("SELECT m.id, m.message, m.date_envoi, m.medecin_id, md.nom AS medecin FROM messages m JOIN medecins md ON m.medecin_id = md.id WHERE m.femme_id = ? ORDER BY m.date_envoi DESC");
+// Historique des messages, y compris les réponses
+$sql_historique = $conn->prepare("SELECT m.id, m.message, m.date_envoi, m.medecin_id, md.nom AS medecin, m.repondre FROM messages m JOIN medecins md ON m.medecin_id = md.id WHERE m.femme_id = ? ORDER BY m.date_envoi DESC");
 $sql_historique->bind_param("i", $femme_id);
 $sql_historique->execute();
 $result_historique = $sql_historique->get_result();
@@ -74,7 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_message'])) {
     $sql_update_message = $conn->prepare("UPDATE messages SET message = ?, medecin_id = ? WHERE id = ? AND femme_id = ?");
     $sql_update_message->bind_param("siii", $new_message, $new_medecin_id, $message_id, $femme_id);
 
-   
     if ($sql_update_message->execute()) {
         // Redirection après mise à jour
         header("Location: messagerie.php");
@@ -131,94 +130,81 @@ if (isset($_GET['delete'])) {
             font-size: 16px;
         }
         .form-container button {
-          
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 6px;
-    border: none;
-    font-size: 16px;
-    transition: 0.3s;
-    background: #35b4c6;
-    color: white;
-    cursor: pointer;
-}
-
-.form-container button :hover {
-    background: #1e88e5;
-}
+            background: #35b4c6;
+            color: white;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background: #1e88e5;
+        }
         
         .message-history {
-    margin: 20px;
-    background: #f9f9f9;
-
-}
-.message-history h1 ,h2{
-    text-align: center; /* Centre le texte du titre */
-    margin: 20px 0; /* Ajoute un espacement au-dessus et en dessous du titre */
-}
-
-.message-item {
-    background: #f9f9f9;
-    padding: 10px; /* Espacement interne */
-    border-left: 5px solid #66bb6a;
-    display: flex;
-    justify-content: space-between; /* Espace entre le contenu et les boutons */
-    align-items: flex-start; /* Alignement en haut */
-    margin-bottom: 0; /* Pas de marge entre les messages */
-}
-
-.message-content {
-    flex: 1; /* Prendre tout l'espace disponible */
-}
-
-.btn-container {
-    display: flex; /* Utiliser flexbox pour les boutons */
-    gap: 10px; /* Espacement entre les boutons */
-}
-
-.btn-edit, .btn-delete {
-    text-decoration: none;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.btn-edit {
-    background-color: #66bb6a; /* Couleur du bouton Modifier */
-}
-
-.btn-edit:hover {
-    background-color: #4caf50; /* Couleur au survol */
-}
-
-.btn-delete {
-    background-color: #f44336; /* Couleur du bouton Supprimer */
-}
-
-.btn-delete:hover {
-    background-color: #e53935; /* Couleur au survol */
-}
-    </style>
-    <script>
-        function toggleForm(message_id) {
-            let forms = document.querySelectorAll('.form-container');
-            forms.forEach(form => form.style.display = 'none');
-
-            let formToShow = document.getElementById('form-modification-' + message_id);
-            if (formToShow) {
-                formToShow.style.display = 'block';
-            }
+            margin: 20px;
+            background: #f9f9f9;
         }
-    </script>
+        .message-history h1, h2 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .message-item {
+            background: #f9f9f9;
+            padding: 10px;
+            border-left: 5px solid #66bb6a;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit, .btn-delete {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-edit {
+            background-color: #66bb6a;
+        }
+
+        .btn-edit:hover {
+            background-color: #4caf50;
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+        }
+
+        .btn-delete:hover {
+            background-color: #e53935;
+        }
+
+        .reply {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+            border-left: 5px solid #2196f3;
+        }
+    </style>
 </head>
 <body>
 
 <div id="form-message" class="form-container">
     <form method="post" action="">
-    <legend><h2><i class="fas fa-paper-plane"></i> Envoyer un message</h2></legend>
-    <select name="medecin_id" required>
+        <legend><h2><i class="fas fa-paper-plane"></i> Envoyer un message</h2></legend>
+        <select name="medecin_id" required>
             <option value="">Choisissez un médecin</option>
             <?php while ($medecin = $result_medecins->fetch_assoc()): ?>
                 <option value="<?php echo $medecin['id']; ?>"><?php echo htmlspecialchars($medecin['nom']); ?></option>
@@ -232,7 +218,7 @@ if (isset($_GET['delete'])) {
 </div>
 
 <div class="message-history">
-<h2><i class="fas fa-history"></i> Historique des Messages</h2>
+    <h2><i class="fas fa-history"></i> Historique des Messages</h2>
     <?php if ($result_historique->num_rows > 0): ?>
         <?php while ($row = $result_historique->fetch_assoc()): ?>
             <div class="message-item">
@@ -240,6 +226,13 @@ if (isset($_GET['delete'])) {
                     <strong>Le <?php echo htmlspecialchars($row['date_envoi']); ?></strong> :<br>
                     Message à <?php echo htmlspecialchars($row['medecin']); ?> :<br>
                     "<?php echo htmlspecialchars($row['message']); ?>"
+                    
+                    <?php if (!empty($row['repondre'])): ?>
+                        <div class="reply">
+                            <strong>Réponse :</strong><br>
+                            "<?php echo htmlspecialchars($row['repondre']); ?>"
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="btn-container">
                     <a href="javascript:void(0);" onclick="toggleForm(<?php echo $row['id']; ?>)" class="btn-edit">
