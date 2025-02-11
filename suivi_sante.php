@@ -13,35 +13,10 @@ if ($conn->connect_error) {
     die("Connexion échouée: " . $conn->connect_error);
 }
 
-// Check for AJAX search request
-if (isset($_GET['search'])) {
-    $searchTerm = $_GET['search'];
-    $sql_notes = "
-        SELECT n.note, n.date_ajout, n.description, CONCAT(m.prenom, ' ', m.nom) AS medecin
-        FROM notes n
-        JOIN medecins m ON n.medecin_id = m.id
-        WHERE CONCAT(m.prenom, ' ', m.nom) LIKE ? OR n.description LIKE ?
-        ORDER BY n.date_ajout DESC
-    ";
+// Initialiser la variable de recherche
+$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
 
-    $stmt = $conn->prepare($sql_notes);
-    $searchTerm = "%$searchTerm%"; // For partial matches
-    $stmt->bind_param('ss', $searchTerm, $searchTerm); // Bind parameters
-    $stmt->execute();
-    $result_notes = $stmt->get_result();
-
-    $notes = [];
-    while ($row = $result_notes->fetch_assoc()) {
-        $notes[] = $row;
-    }
-    echo json_encode($notes); // Return results as JSON
-    exit(); // Stop further execution
-}
-
-// Initial search variable
-$searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
-
-// Prepare SQL query to fetch notes
+// Préparer la requête SQL pour rechercher par nom de médecin ou description
 $sql_notes = "
     SELECT n.note, n.date_ajout, n.description, CONCAT(m.prenom, ' ', m.nom) AS medecin
     FROM notes n
@@ -51,14 +26,10 @@ $sql_notes = "
 ";
 
 $stmt = $conn->prepare($sql_notes);
-$searchTerm = "%$searchTerm%"; // For partial matches
-$stmt->bind_param('ss', $searchTerm, $searchTerm); // Bind parameters
+$searchTerm = "%$searchTerm%"; // Pour inclure des correspondances partielles
+$stmt->bind_param('ss', $searchTerm, $searchTerm); // Lier les deux paramètres
 $stmt->execute();
 $result_notes = $stmt->get_result();
-
-if (!$result_notes) {
-    die("Erreur lors de la récupération des notes: " . $conn->error);
-}
 ?>
 
 <!DOCTYPE html>
@@ -118,12 +89,11 @@ if (!$result_notes) {
     <h2 class="text-center mb-4"><i class="fas fa-notes-medical"></i> Suivi des Notes Médicales</h2>
 
     <!-- Formulaire de recherche -->
-    <form method="POST" class="search-bar">
+    <div class="search-bar">
         <div class="input-group">
             <input type="text" id="search" class="form-control" placeholder="Rechercher par nom de médecin ou description" value="<?php echo htmlspecialchars($searchTerm); ?>">
-            <button class="btn btn-primary" type="submit">Rechercher</button>
         </div>
-    </form>
+    </div>
 
     <div id="notes-container">
         <?php if ($result_notes->num_rows > 0): ?>
@@ -135,7 +105,7 @@ if (!$result_notes) {
                 <div class="card-body">
                     <p class="note-text">📝 "<?php echo nl2br(htmlspecialchars($row['description'])); ?>"</p>
                     <p>
-                        <a href="<?php echo htmlspecialchars($row['note']); ?>" target="_blank" class="btn btn-secondary">Voir le PDF</a>
+                        <a href="./uploaded_notes/<?php echo htmlspecialchars($row['note']); ?>" target="_blank" class="btn btn-secondary">Voir le PDF</a>
                     </p>
                 </div>
                 <div class="card-footer note-footer">
@@ -155,35 +125,11 @@ $(document).ready(function() {
     $('#search').on('input', function() {
         let searchTerm = $(this).val();
         $.ajax({
-            url: '', // Current page
+            url: 'fetch_notes.php', // Appel à la nouvelle page
             method: 'GET',
             data: { search: searchTerm },
             success: function(data) {
-                let notes = JSON.parse(data);
-                let resultsHTML = '';
-                if (notes.length > 0) {
-                    notes.forEach(note => {
-                        resultsHTML += `
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    Médecin : <span class="fw-bold">${note.medecin}</span>
-                                </div>
-                                <div class="card-body">
-                                    <p class="note-text">📝 "${note.description}"</p>
-                                    <p>
-                                        <a href="${note.note}" target="_blank" class="btn btn-secondary">Voir le PDF</a>
-                                    </p>
-                                </div>
-                                <div class="card-footer note-footer">
-                                    Ajoutée le ${note.date_ajout}
-                                </div>
-                            </div>
-                        `;
-                    });
-                } else {
-                    resultsHTML = '<p class="text-center text-muted">Aucune note trouvée.</p>';
-                }
-                $('#notes-container').html(resultsHTML);
+                $('#notes-container').html(data);
             }
         });
     });
