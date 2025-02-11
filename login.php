@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion </title>
+  <title>Connexion</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -87,6 +87,32 @@
     .login-container a:hover {
       text-decoration: underline;
     }
+
+    /* Style pour le bouton de retour */
+    .back-button {
+      display: flex;
+      justify-content: flex-start; /* Aligner le contenu à gauche */
+      margin-top: 20px;
+    }
+
+    .back-button a {
+      display: flex;
+      align-items: center; /* Centrer l'icône verticalement */
+      padding: 10px 20px;
+      background-color: #35b4c6;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button a:hover {
+      background-color: #0056b3;
+    }
+
+    .back-button i {
+      margin-right: 8px; /* Espace entre l'icône et le texte */
+    }
   </style>
 
   <!-- Font Awesome Icons -->
@@ -108,8 +134,12 @@
 
       <p>Vous n'avez pas de compte ? <a href="inscription.html">Inscrivez-vous</a></p>
     </form>
+
+    <!-- Bouton de retour -->
+    <div class="back-button">
+      <a href="index.html"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+    </div>
   </div>
 </body>
-
 
 </html>

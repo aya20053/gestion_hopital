@@ -2,34 +2,16 @@
 session_start();
 include 'menu.php';
 
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "clinique_bonheur";
+// Récupérer toutes les notes depuis la base de données
+// Assurez-vous de remplacer cette partie par votre logique de récupération des données
+$notes = []; // Remplacez ceci par votre requête pour récupérer les notes
 
-// Connexion à la base de données
-$conn = new mysqli($host, $user, $pass, $dbname);
-if ($conn->connect_error) {
-    die("Connexion échouée: " . $conn->connect_error);
-}
-
-// Initialiser la variable de recherche
-$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
-
-// Préparer la requête SQL pour rechercher par nom de médecin ou description
-$sql_notes = "
-    SELECT n.note, n.date_ajout, n.description, CONCAT(m.prenom, ' ', m.nom) AS medecin
-    FROM notes n
-    JOIN medecins m ON n.medecin_id = m.id
-    WHERE CONCAT(m.prenom, ' ', m.nom) LIKE ? OR n.description LIKE ?
-    ORDER BY n.date_ajout DESC
-";
-
-$stmt = $conn->prepare($sql_notes);
-$searchTerm = "%$searchTerm%"; // Pour inclure des correspondances partielles
-$stmt->bind_param('ss', $searchTerm, $searchTerm); // Lier les deux paramètres
-$stmt->execute();
-$result_notes = $stmt->get_result();
+// Exemple de données (à remplacer par votre logique)
+$notes = [
+    ['medecin' => 'Dr. Dupont', 'description' => 'Consultation annuelle', 'note' => 'note1.pdf', 'date_ajout' => '2023-01-01'],
+    ['medecin' => 'Dr. Martin', 'description' => 'Suivi diabète', 'note' => 'note2.pdf', 'date_ajout' => '2023-02-01'],
+    // Ajoutez d'autres notes ici
+];
 ?>
 
 <!DOCTYPE html>
@@ -91,31 +73,28 @@ $result_notes = $stmt->get_result();
     <!-- Formulaire de recherche -->
     <div class="search-bar">
         <div class="input-group">
-            <input type="text" id="search" class="form-control" placeholder="Rechercher par nom de médecin ou description" value="<?php echo htmlspecialchars($searchTerm); ?>">
+            <input type="text" id="search" class="form-control" placeholder="Rechercher par nom de médecin ou description">
         </div>
     </div>
 
     <div id="notes-container">
-        <?php if ($result_notes->num_rows > 0): ?>
-            <?php while ($row = $result_notes->fetch_assoc()): ?>
-            <div class="card mb-3">
-                <div class="card-header">
-                    Médecin : <span class="fw-bold"><?php echo htmlspecialchars($row['medecin']); ?></span>
-                </div>
-                <div class="card-body">
-                    <p class="note-text">📝 "<?php echo nl2br(htmlspecialchars($row['description'])); ?>"</p>
-                    <p>
-                        <a href="./uploaded_notes/<?php echo htmlspecialchars($row['note']); ?>" target="_blank" class="btn btn-secondary">Voir le PDF</a>
-                    </p>
-                </div>
-                <div class="card-footer note-footer">
-                    Ajoutée le <?php echo htmlspecialchars($row['date_ajout']); ?>
-                </div>
-            </div>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p class="text-center text-muted">Aucune note trouvée.</p>
-        <?php endif; ?>
+        <?php
+        if (!empty($notes)) {
+            foreach ($notes as $row) {
+                echo '
+                <div class="card mb-3">
+                    <div class="card-header">Médecin : <span class="fw-bold">' . htmlspecialchars($row['medecin']) . '</span></div>
+                    <div class="card-body">
+                        <p class="note-text">📝 "' . nl2br(htmlspecialchars($row['description'])) . '"</p>
+                        <p><a href="./uploaded_notes/' . htmlspecialchars($row['note']) . '" target="_blank" class="btn btn-secondary">Voir le PDF</a></p>
+                    </div>
+                    <div class="card-footer note-footer">Ajoutée le ' . htmlspecialchars($row['date_ajout']) . '</div>
+                </div>';
+            }
+        } else {
+            echo '<p class="text-center text-muted">Aucune note trouvée.</p>';
+        }
+        ?>
     </div>
 </div>
 
@@ -125,7 +104,7 @@ $(document).ready(function() {
     $('#search').on('input', function() {
         let searchTerm = $(this).val();
         $.ajax({
-            url: 'fetch_notes.php', // Appel à la nouvelle page
+            url: 'fetch_notes.php',
             method: 'GET',
             data: { search: searchTerm },
             success: function(data) {
@@ -138,8 +117,3 @@ $(document).ready(function() {
 
 </body>
 </html>
-
-<?php
-$stmt->close();
-$conn->close();
-?>

@@ -64,13 +64,34 @@
         .inscription-container button:hover {
             background-color: #0056b3;
         }
+        /* Style pour le bouton de retour */
+        .back-button {
+            display: flex;
+            justify-content: flex-start; /* Aligner à gauche */
+            margin-top: 20px;
+        }
+        .back-button a {
+            display: flex;
+            align-items: center; /* Centrer l'icône verticalement */
+            padding: 10px 20px;
+            background-color: #35b4c6;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .back-button a:hover {
+            background-color: #0056b3;
+        }
+        .back-button i {
+            margin-right: 8px; /* Espace entre l'icône et le texte */
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
 </head>
 <body>
     <div class="inscription-container">
-      <h2><i class="fas fa-user-plus"></i> Inscription </h2>
+      <h2><i class="fas fa-user-plus"></i> Inscription</h2>
       
       <form action="inscription.php" method="POST">
         <label for="nom"><i class="fas fa-user"></i> Nom :</label>
@@ -89,6 +110,11 @@
       </form>
   
       <p>Vous avez déjà un compte ? <a href="login.php">Connectez-vous ici</a></p>
+
+      <!-- Bouton de retour -->
+      <div class="back-button">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+      </div>
     </div>
-  </body>
-</html>  
+</body>
+</html>
