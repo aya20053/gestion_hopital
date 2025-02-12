@@ -1,9 +1,9 @@
 <?php
 // Connexion à la base de données
-$host = "localhost"; // Adresse du serveur MySQL
-$user = "root"; // Nom d'utilisateur MySQL (par défaut "root" sous XAMPP)
-$pass = ""; // Mot de passe MySQL (vide par défaut sous XAMPP)
-$dbname = "clinique_bonheur"; // Nom de la base de données
+$host = "localhost"; 
+$user = "root"; 
+$pass = ""; 
+$dbname = "clinique_bonheur"; 
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 
@@ -38,16 +38,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $stmt_check->close();
 
-    // Hasher le mot de passe
-    $password_hash = password_hash($password, PASSWORD_BCRYPT);
-
-    // Insérer les données dans la base de données
-    $sql = "INSERT INTO femmes_enceintes (nom, prenom, email, password) VALUES (?, ?, ?, ?)";
+    // Insérer les données dans la base de données avec est_valide à 0
+    $sql = "INSERT INTO femmes_enceintes (nom, prenom, email, password, est_valide) VALUES (?, ?, ?, ?, 0)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $nom, $prenom, $email, $password_hash);
+    $stmt->bind_param("ssss", $nom, $prenom, $email, $password);
 
     if ($stmt->execute()) {
-        echo "Inscription réussie ! <a href='login.php'>Connectez-vous</a>";
+        echo "Inscription réussie ! Vous devez attendre la validation de votre compte par un administrateur.";
     } else {
         echo "Erreur lors de l'inscription : " . $conn->error;
     }

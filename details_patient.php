@@ -1,5 +1,8 @@
 <?php
 session_start();
+ob_start();
+
+include 'menu_admin.php';
 
 // Vérifier si l'utilisateur est connecté et est un administrateur
 if (!isset($_SESSION['user_id'])) {
