@@ -3,11 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Clinique de Bonheur</title>
+        <title>Cabinet de Bonheur</title>
         <link rel="icon" type="image/png" href="logo2.png">
         
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     
     <style>
@@ -59,18 +63,18 @@
 }
 
 
-  /* Navigation */
-  .navbar {
-            position: absolute;
-            top: 20px;
-            width: 90%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 2;
-        }
+/* Navigation */
+.navbar {
+                    position: absolute;
+                    top: 20px;
+                    width: 90%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    z-index: 2;
+            }
 
-        .navbar img {
+            .navbar img {
     width: 50px; /* Ajuste la taille selon tes besoins */
     height: 50px;
     border-radius: 50%;
@@ -78,28 +82,28 @@
 }
 
 
-        .navbar ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
+            .navbar ul {
+                    list-style: none;
+                    display: flex;
+                    gap: 20px;
+            }
 
-        .navbar ul li {
-            display: inline;
-        }
+            .navbar ul li {
+                    display: inline;
+            }
 
-        .navbar ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px;
-            transition: 0.3s;
-        }
+            .navbar ul li a {
+                    color: white;
+                    text-decoration: none;
+                    font-size: 18px;
+                    font-weight: bold;
+                    padding: 10px;
+                    transition: 0.3s;
+            }
 
-        .navbar ul li a:hover {
-            color: #35b4c6;
-        }
+            .navbar ul li a:hover {
+                    color: #35b4c6;
+            }
 
         /* Boutons */
         .buttons {
@@ -384,20 +388,35 @@ button:hover {
         <div class="overlay"></div>
 
         <!-- Barre de navigation -->
-        <nav class="navbar">
-            <img src="logo3.png" alt="Logo Hôpital" />
-            <ul>
-                <li><a href="#specialites">Nos spécialités</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="inscription.html">S'inscrire</a></li>
-                <li class="dropdown">
-                    <a href="#" id="login-btn">Se connecter</a>
-                    <ul class="dropdown-menu" id="dropdown-menu" style="display: none;">
-                        <li><a href="login.php?role=patient">Se connecter comme Patient</a></li>
-                        <li><a href="login_admin.php?role=admin">Se connecter comme Admin</a></li>
-                    </ul>
-                </li>         
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="logo3.png" alt="Logo Hôpital" width="50" height="50" class="d-inline-block align-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#specialites">Nos spécialités</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inscription.html">S'inscrire</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Se connecter
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="loginDropdown">
+                            <a class="dropdown-item" href="login.php?role=patient">Se connecter comme Patient</a>
+                            <a class="dropdown-item" href="login_admin.php?role=admin">Se connecter comme Admin</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </nav>
        
         <div class="arrow left" onclick="changeImage(-1)">&#10094;</div>
