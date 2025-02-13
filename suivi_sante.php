@@ -1,17 +1,32 @@
 <?php
 session_start();
 include 'menu.php';
+// Database connection
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "clinique_bonheur";
 
-// Récupérer toutes les notes depuis la base de données
-// Assurez-vous de remplacer cette partie par votre logique de récupération des données
-$notes = []; // Remplacez ceci par votre requête pour récupérer les notes
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
 
-// Exemple de données (à remplacer par votre logique)
-$notes = [
-    ['medecin' => 'Dr. Dupont', 'description' => 'Consultation annuelle', 'note' => 'note1.pdf', 'date_ajout' => '2023-01-01'],
-    ['medecin' => 'Dr. Martin', 'description' => 'Suivi diabète', 'note' => 'note2.pdf', 'date_ajout' => '2023-02-01'],
-    // Ajoutez d'autres notes ici
-];
+// Requête SQL pour récupérer les notes et les noms des médecins
+$query = "SELECT n.id, m.nom AS medecin, n.note, n.description, n.date_ajout
+          FROM notes n
+          JOIN medecins m ON n.medecin_id = m.id";
+
+// Exécution de la requête
+$stmt = $pdo->query($query);
+
+// Vérifiez si la requête a renvoyé des résultats
+$notes = $stmt->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -33,14 +48,10 @@ $notes = [
         .card {
             border-radius: 20px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: scale(1.02);
         }
         .card-header {
             font-weight: bold;
-            background-color: #007bff;
+            background-color: #872341;
             color: white;
             border-radius: 20px 20px 0 0;
             padding: 15px;
@@ -54,11 +65,11 @@ $notes = [
             color: #666;
         }
         .btn-secondary {
-            background-color: #6c757d;
+            background-color: #B39188;
             border: none;
         }
         .btn-secondary:hover {
-            background-color: #5a6268;
+            background-color:rgb(184, 149, 139);
         }
         .search-bar {
             margin-bottom: 20px;

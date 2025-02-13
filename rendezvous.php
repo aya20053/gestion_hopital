@@ -163,7 +163,8 @@ $conn->close();
             width: 100%;
             font-weight: bold;
             padding: 12px;
-            background-color: #872341;
+            background-color:#B39188;
+            color: #872341;
             color: white;
             border: none;
             border-radius: 5px;
@@ -174,8 +175,8 @@ $conn->close();
             text-decoration: none;
         }
         .back-button a:hover {
-            background-color: #B39188;
-            color:#872341;
+            background-color: #872341;
+          
         }
     </style>
 </head>

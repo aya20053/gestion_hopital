@@ -66,7 +66,6 @@ $result_historique = $sql_historique->get_result();
 
 // Mettre à jour le message
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_message'])) {
-    // Récupérer l'ID du message à modifier depuis l'URL
     $message_id = (int)$_GET['edit'];
     $new_message = $conn->real_escape_string(trim($_POST['message']));
     $new_medecin_id = (int)$_POST['medecin_id'];
@@ -106,102 +105,167 @@ if (isset($_GET['delete'])) {
     <title>Messagerie</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('1.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        .form-container {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-        }
-        .form-container input, .form-container textarea, .form-container select, .form-container button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
-        .form-container button {
-            background: #35b4c6;
-            color: white;
-            cursor: pointer;
-        }
-        .form-container button:hover {
-            background: #1e88e5;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('1.jpg');
+    background-size: cover;
+    background-position: center;
+}.btn-container {
+    display: flex;
+    justify-content: center; /* Ou 'flex-start' pour l'aligner à gauche */
+    gap: 10px; /* Espacement entre les boutons */
+    margin-top: 20px;
+}
+
+.btn-container button {
+    margin: 0; /* Enlève les marges automatiques */
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #B39188;
+    background: #872341;
+    color: white;
+    cursor: pointer;
+    display: inline-block; /* Le bouton reste à côté des autres éléments */
+}
+
+
         
-        .message-history {
-            margin: 20px;
-            background: #f9f9f9;
+        .btn-container button:hover {
+            background: #B39188;
+            color: #872341;
         }
-        .message-history h1, h2 {
+
+.form-container {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.form-container input, .form-container textarea, .form-container select, .form-container button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.form-container button {
+    background: #B39188;
+    color: white;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background: #872341;
+}
+
+.message-history {
+    margin: 20px;
+    background: #f9f9f9;
+}
+
+.message-history h1, h2 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.message-item {
+    background: #f9f9f9;
+    padding: 10px;
+    border-left: 5px solid #66bb6a;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0;
+}
+
+.message-content {
+    flex: 1;
+}
+
+.btn-container {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit, .btn-delete {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-edit {
+    background-color: #B39188;
+}
+
+.btn-edit:hover {
+    background-color: #872341;
+}
+
+.btn-delete {
+    background-color: #f44336;
+}
+
+.btn-delete:hover {
+    background-color: #e53935;
+}
+
+.reply {
+    background: #e3f2fd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+    border-left: 5px solid #2196f3;
+}
+.back-button a {
+            width: 100%;
+            font-weight: bold;
+            padding: 12px;
+            background-color:#B39188;
+            color: #872341;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
             text-align: center;
-            margin: 20px 0;
-        }
-
-        .message-item {
-            background: #f9f9f9;
-            padding: 10px;
-            border-left: 5px solid #66bb6a;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0;
-        }
-
-        .message-content {
-            flex: 1;
-        }
-
-        .btn-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-edit, .btn-delete {
             text-decoration: none;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
         }
-
-        .btn-edit {
-            background-color: #66bb6a;
+        .back-button a:hover {
+            background-color: #872341;
+          
         }
-
-        .btn-edit:hover {
-            background-color: #4caf50;
+        .back-button {
+            display: flex;
+            justify-content: flex-start; /* Aligner à gauche */
+            margin-top: 20px;
         }
-
-        .btn-delete {
-            background-color: #f44336;
-        }
-
-        .btn-delete:hover {
-            background-color: #e53935;
-        }
-
-        .reply {
-            background: #e3f2fd;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 5px;
-            border-left: 5px solid #2196f3;
+        h2 {
+            text-align: center;
+            color: #872341;
         }
     </style>
 </head>
 <body>
 
-<div id="form-message" class="form-container">
+<div class="btn-container">
+    <button id="showRendezvous" onclick="showRendezvous()">
+        <i class="fas fa-calendar"></i> Afficher Rendez-vous
+    </button>
+    <button id="showHistorique" onclick="showHistorique()">
+        <i class="fas fa-history"></i> Afficher Historique
+    </button>
+</div>
+
+<div id="form-message" class="form-container" style="display: none;">
     <form method="post" action="">
         <legend><h2><i class="fas fa-paper-plane"></i> Envoyer un message</h2></legend>
         <select name="medecin_id" required>
@@ -214,10 +278,13 @@ if (isset($_GET['delete'])) {
         <textarea name="message" rows="5" placeholder="Écrivez votre message ici..." required></textarea>
         
         <button type="submit" name="submit">Envoyer le message</button>
+        <div class="back-button">
+    <a href="rendezvous.php"><i class="fas fa-arrow-left"></i> Annuler</a>
+</div>
     </form>
 </div>
 
-<div class="message-history">
+<div id="historique" class="message-history" style="display: none;">
     <h2><i class="fas fa-history"></i> Historique des Messages</h2>
     <?php if ($result_historique->num_rows > 0): ?>
         <?php while ($row = $result_historique->fetch_assoc()): ?>
@@ -266,8 +333,23 @@ if (isset($_GET['delete'])) {
         <p>Aucun message trouvé.</p>
     <?php endif; ?>
 </div>
-<?php
-$conn->close();
-?>
+
+<script>
+    function showRendezvous() {
+        document.getElementById('form-message').style.display = 'block';
+        document.getElementById('historique').style.display = 'none';
+    }
+
+    function showHistorique() {
+        document.getElementById('form-message').style.display = 'none';
+        document.getElementById('historique').style.display = 'block';
+    }
+
+    function toggleForm(messageId) {
+        var form = document.getElementById('form-modification-' + messageId);
+        form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
+
 </body>
 </html>

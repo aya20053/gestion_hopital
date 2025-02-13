@@ -133,9 +133,9 @@
       <input type="password" name="password" required>
 
       <button type="submit"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
- <div class="back-button">
-      <a href="index.html"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
-    </div>
+    <div class="back-button">
+          <a href="index.html"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+        </div>
       <p>Vous n'avez pas de compte ? <a href="inscription.html">Inscrivez-vous</a></p>
     
   </form>
