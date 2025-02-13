@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         h1 {
             text-align: center;
-            color: #333;
+            color:#883C65;
             margin-bottom: 20px;
         }
 
@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         button {
             width: 100%;
             padding: 10px;
-            background-color: #3498db;
+            background-color: #883C65;
             color: white;
             border: none;
             border-radius: 4px;
@@ -167,7 +167,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         button:hover {
-            background-color: #2980b9;
+            background-color: #78566D;
+        }
+
+        .back-button {
+            display: flex;
+            justify-content: flex-start; /* Aligner à gauche */
+            margin-top: 20px;
+        }
+        .back-button a {
+            width: 100%;
+            padding: 12px;
+            background-color: #883C65;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        .back-button a:hover {
+            background-color: #78566D;
+         
         }
     </style>
 </head>
@@ -216,7 +239,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>Allergies :</label>
             <textarea name="allergies" required><?= htmlspecialchars($patient['allergies']) ?></textarea>
 
-            <button type="submit">Mettre à jour</button>
+            <button type="submit"><i class="fas fa-sync-alt"></i> Mettre à jour</button>
+
+<div class="back-button">
+    <a href="patients.php"><i class="fas fa-arrow-left"></i> Annuler</a>
+</div>
+
         </form>
     </div>
 </body>

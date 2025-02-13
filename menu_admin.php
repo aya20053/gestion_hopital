@@ -15,7 +15,7 @@
             left: -250px; /* Caché par défaut */
             width: 250px;
             height: 100vh;
-            background-color: #BD3246;
+            background-color: #5E2B45;
             color: white;
             transition: left 0.3s ease;
             z-index: 1000;
@@ -70,7 +70,7 @@
             position: fixed;
             top: 20px;
             left: 20px;
-            background-color: #BD3246;
+            background-color: #5E2B45;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -86,7 +86,7 @@
         }
 
         .open-menu-btn:hover {
-            background-color:rgb(225, 117, 100);
+            background-color:#883C65;
           
         }
 

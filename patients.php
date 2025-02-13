@@ -71,88 +71,89 @@ $patients = $stmt->fetchAll();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
 
-        .search-form {
-            margin-bottom: 20px;
-        }
+.search-form {
+    margin-bottom: 20px;
+}
 
-        .search-form input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
+.search-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
-        table th, table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
 
-        table th {
-            background-color: #2c3e50;
-            color: white;
-        }
+table th {
+    background-color: #883C65;
+    color: white;
+}
 
-        table tr:hover {
-            background-color: #f5f5f5;
-        }
+table tr:hover {
+    background-color: #f5f5f5;
+}
 
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
 
-        .action-buttons a {
-            text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            color: white;
-            font-size: 14px;
-        }
+.action-buttons a {
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+}
 
-        .action-buttons .edit {
-            background-color: #3498db;
-        }
+.action-buttons .edit {
+    background-color: #9DC08B;
+}
 
-        .action-buttons .delete {
-            background-color: #e74c3c;
-        }
+.action-buttons .delete {
+    background-color: #B82132;
+}
 
-        .action-buttons .details {
-            background-color: green;
-        }
+.action-buttons .details {
+    background-color: #48A6A7;
+}
 
-        .action-buttons a:hover {
-            opacity: 0.9;
-        }
+.action-buttons a:hover {
+    opacity: 0.9;
+}
+
     </style>
 </head>
 <body>

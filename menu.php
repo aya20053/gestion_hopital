@@ -88,7 +88,7 @@
    
 }
  
-.menu-iteme img {
+.menu-item img {
     max-width: 100%; /* Adaptation à la taille du conteneur */
     height: auto; /* Conserve les proportions */
 }
@@ -108,7 +108,7 @@
            
         </div>
         <div class="menu-items">
-             <div class="menu-iteme">
+             <div class="menu-item">
             <img src="bg.png" alt="Logo Hôpital" />
             </div>
                 <div class="menu-item">

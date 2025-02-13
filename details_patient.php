@@ -101,14 +101,14 @@ if (!$patient) {
         .back-button a {
             text-decoration: none;
             padding: 10px 20px;
-            background-color: #3498db;
+            background-color: #883C65;
             color: white;
             border-radius: 4px;
             font-size: 16px;
         }
 
         .back-button a:hover {
-            background-color: #2980b9;
+            background-color: #78566D;
         }
     </style>
 </head>
