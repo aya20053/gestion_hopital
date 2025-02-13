@@ -85,7 +85,7 @@ $rendezvous = $stmt->fetchAll();
 
         h1 {
             text-align: center;
-            color: #333;
+            color:#3B1C32;
             margin-bottom: 20px;
         }
 
@@ -114,7 +114,7 @@ $rendezvous = $stmt->fetchAll();
         }
 
         table th {
-            background-color: #2c3e50;
+            background-color:#3B1C32;
             color: white;
         }
 
@@ -136,8 +136,7 @@ $rendezvous = $stmt->fetchAll();
         }
 
         .action-buttons .edit {
-            background-color: #3498db;
-        }
+            background-color: #48A6A7;        }
 
         .action-buttons .delete {
             background-color: #e74c3c;

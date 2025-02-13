@@ -17,7 +17,7 @@
             left: -250px; /* Caché par défaut */
             width: 250px;
             height: 100vh;
-            background-color: #3B1C32;
+            background-color: #883C65;
             color: white;
             transition: left 0.3s ease;
             z-index: 1000;

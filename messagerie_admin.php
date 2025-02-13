@@ -65,6 +65,11 @@ if (isset($_GET['search'])) {
             margin: 0;
             padding: 0;
         }
+        h1 {
+            text-align: center;
+            color:#3B1C32;
+            margin-bottom: 20px;
+        }
         .container {
             max-width: 1200px;
             margin: 50px auto;
@@ -94,18 +99,35 @@ if (isset($_GET['search'])) {
             border-bottom: 1px solid #ddd;
         }
         table th {
-            background-color: #2c3e50;
-            color: white;
-        }
+    background-color:#3B1C32;
+    color: white;
+}
+
         table tr:hover {
             background-color: #f5f5f5;
         }
         .reply {
-            background: #e3f2fd;
+            background: #F4CCE9;
             padding: 10px;
             border-radius: 5px;
             margin-top: 5px;
-            border-left: 5px solid #2196f3;
+            border-left: 5px solid #A64D79;
+        }
+        .btn {
+            padding: 7px;
+            border: solid 1px#3B1C32;
+            color: #3B1C32;
+           
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color:#3B1C32;
+            color:#A64D79;
         }
     </style>
 </head>
@@ -143,7 +165,7 @@ if (isset($_GET['search'])) {
                         <td><?= htmlspecialchars($msg['femme_prenom'] . ' ' . $msg['femme_nom']) ?></td>
                         <td><?= htmlspecialchars($msg['medecin_prenom'] . ' ' . $msg['medecin_nom']) ?></td>
                         <td>
-                            <a href="#" onclick="showReplyForm(<?= $msg['id'] ?>, '<?= htmlspecialchars($msg['femme_id']) ?>')">Répondre</a>
+                            <a href="#"  class="btn" onclick="showReplyForm(<?= $msg['id'] ?>, '<?= htmlspecialchars($msg['femme_id']) ?>')" class="btn">Répondre</a>
                             <div id="reply-form-<?= $msg['id'] ?>"></div>
                         </td>
                     </tr>

@@ -87,7 +87,7 @@ $patients = $stmt->fetchAll();
 
 h1 {
     text-align: center;
-    color: #333;
+    color:#3B1C32;
     margin-bottom: 20px;
 }
 
@@ -116,7 +116,7 @@ table th, table td {
 }
 
 table th {
-    background-color: #883C65;
+    background-color:#3B1C32;
     color: white;
 }
 
@@ -142,7 +142,7 @@ table tr:hover {
 }
 
 .action-buttons .delete {
-    background-color: #B82132;
+    background-color: #e74c3c;
 }
 
 .action-buttons .details {
