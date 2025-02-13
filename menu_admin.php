@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu à Gauche</title>
+    <title>Cabinet de Bonheur</title>
+        <link rel="icon" type="image/png" href="lgp.png">
+        
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Styles généraux */
@@ -15,7 +17,7 @@
             left: -250px; /* Caché par défaut */
             width: 250px;
             height: 100vh;
-            background-color: #5E2B45;
+            background-color: #3B1C32;
             color: white;
             transition: left 0.3s ease;
             z-index: 1000;

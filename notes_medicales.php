@@ -1,6 +1,6 @@
 <?php
-session_start(); // Start the session
-
+session_start();
+include 'menu.php';
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php"); // Redirect to login page
@@ -94,7 +94,6 @@ $notes = $stmt->fetchAll();
     <style>
         /* General Styles */
         body {
-            font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;

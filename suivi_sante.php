@@ -40,7 +40,6 @@ $notes = $stmt->fetchAll();
     <style>
         body {
             background-color: #e9ecef;
-            font-family: Arial, sans-serif;
         }
         .container {
             margin-top: 30px;
