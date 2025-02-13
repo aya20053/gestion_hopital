@@ -90,79 +90,110 @@ $conn->close();
     
     <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-image: url('1.jpg'); /* Remplacez par le chemin de votre image */
-      background-size: cover;
-      background-position: center;
-      overflow: hidden; /* Empêche le défilement de la page */
-    }
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('1.jpg'); /* Remplacez par le chemin de votre image */
+    background-size: cover;
+    background-position: center;
+    overflow: hidden; /* Empêche le défilement de la page */
+}
 
-    form {
-      max-width: 700px;
-      width: 90%; /* Ajustement pour les petits écrans */
-      max-height: 80vh; /* Limite la hauteur du formulaire */
-      padding: 30px;
-      background-color: rgba(255, 255, 255, 0.4); /* Transparence */
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(5px); /* Effet de flou */
-      overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
-    }
-    h1 {
-    text-align: center; /* Centre le texte */
-    width: 100%; /* Assure qu'il prend toute la largeur */
+form {
+    max-width: 700px;
+    width: 90%; /* Ajustement pour les petits écrans */
+    max-height: 80vh; /* Limite la hauteur du formulaire */
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.4); /* Transparence avec couleur assortie */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px); /* Effet de flou plus marqué */
+    overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    color: #872341; /* Texte assorti au design */
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #ffffff; /* Blanc pour contraster avec le fond */
+}
+
+/* Champs de saisie */
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #B39188;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.9); /* Plus clair pour plus de lisibilité */
+}
+
+input:focus,
+textarea:focus {
+    border-color: #B39188;
+    outline: none;
 }
 
 
-    
 
-    label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: 600;
-      color: #333;
-    }
 
-    input[type="text"],
-    input[type="date"],
-    input[type="number"],
-    textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 25px;
-      border: 1px solid #ced4da;
-      border-radius: 5px;
-      box-sizing: border-box;
-      background-color: rgba(255, 255, 255, 0.8); /* Légère transparence pour les champs */
-    }
+  form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #872341;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+       button:hover {
+            background-color: #B39188;
+            color:#872341;
+        }
+        /* Style pour le bouton de retour */
+        .back-button {
+            display: flex;
+            justify-content: flex-start; /* Aligner à gauche */
+          
+        }
 
-    input:focus,
-    textarea:focus {
-      border-color: #35b4c6;
-      outline: none;
-    }
+/* Bouton retour */
+.back-button a {
+            width: 100%;
+            padding: 12px;
+            background-color: #872341;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            text-decoration: none;  
+            margin-TOP: 14px;
+        }
+        .back-button a:hover {
+            background-color: #B39188;
+            color:#872341;
+        }
 
-    button {
-      display: inline-block;
-      padding: 12px 25px;
-      background-color: #35b4c6;
-      color: #ffffff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color:#529ba4;
-    }
   </style>
 </head>
 <body>
@@ -212,8 +243,12 @@ $conn->close();
 
         <label for="allergies">Allergies :</label>
         <textarea id="allergies" name="allergies"><?= htmlspecialchars($user['allergies'] ?? ''); ?></textarea>
+       
+        <button type="submit"><i class="fas fa-save"></i> Mettre à jour</button>
+<div class="back-button">
+    <a href="menu.php"><i class="fas fa-arrow-left"></i> Annuler</a>
+</div>
 
-        <button type="submit">Mettre à jour</button>
     </form>
 </body>
 </html>

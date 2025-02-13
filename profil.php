@@ -51,9 +51,9 @@ $conn->close();
             margin-top: 60px;
         }
         .alert {
-            background: #ffcc00;
+            background: #7C4C53;
             padding: 15px;
-            color: #333;
+            color: white;
             text-align: center;
             font-weight: bold;
             margin-bottom: 10px;
@@ -61,7 +61,7 @@ $conn->close();
         .welcome-message {
             font-size: 30px;
             font-weight: bold;
-            color: #35b4c6;
+            color: #872341;
             margin-bottom: -200px;
             text-align: right;
         }
