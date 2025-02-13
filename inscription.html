@@ -47,13 +47,13 @@
             box-sizing: border-box;
         }
         .inscription-container input:focus {
-            border-color: #35b4c6;
+            border-color: #872341;
             outline: none;
         }
         .inscription-container button {
             width: 100%;
             padding: 12px;
-            background-color: #35b4c6;
+            background-color: #872341;
             color: white;
             border: none;
             border-radius: 5px;
@@ -62,7 +62,8 @@
             transition: background-color 0.3s ease;
         }
         .inscription-container button:hover {
-            background-color: #0056b3;
+            background-color: #B39188;
+            color:#872341;
         }
         /* Style pour le bouton de retour */
         .back-button {
@@ -71,21 +72,26 @@
             margin-top: 20px;
         }
         .back-button a {
-            display: flex;
-            align-items: center; /* Centrer l'icône verticalement */
-            padding: 10px 20px;
-            background-color: #35b4c6;
+            width: 100%;
+            padding: 12px;
+            background-color: #872341;
             color: white;
+            border: none;
             border-radius: 5px;
-            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
             transition: background-color 0.3s ease;
+            text-align: center;
+            text-decoration: none;
         }
         .back-button a:hover {
-            background-color: #0056b3;
+            background-color: #B39188;
+            color:#872341;
         }
-        .back-button i {
-            margin-right: 8px; /* Espace entre l'icône et le texte */
+        p a {
+            color: #872341
         }
+       
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -107,14 +113,15 @@
         <input type="password" id="password" name="password" required>
   
         <button type="submit"><i class="fas fa-user-plus"></i> S'inscrire</button>
+        <div class="back-button">
+            <a href="index.html"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+          </div>
       </form>
   
       <p>Vous avez déjà un compte ? <a href="login.php">Connectez-vous ici</a></p>
 
       <!-- Bouton de retour -->
-      <div class="back-button">
-        <a href="index.html"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
-      </div>
+      
     </div>
 </body>
 </html>

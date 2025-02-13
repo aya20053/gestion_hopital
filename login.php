@@ -54,24 +54,25 @@
     }
 
     .login-container input:focus {
-      border-color: #35b4c6;
+      border-color: #872341;
       outline: none;
     }
 
     .login-container button {
       width: 100%;
       padding: 12px;
-      background-color: #35b4c6;
+      background-color: #872341;
       color: white;
       border: none;
       border-radius: 5px;
       font-size: 16px;
-      cursor: pointer;
       transition: background-color 0.3s ease;
+      cursor: pointer;
     }
 
     .login-container button:hover {
-      background-color: #0056b3;
+      background-color: #B39188;
+      color:#872341;
     }
 
     .login-container p {
@@ -80,7 +81,7 @@
     }
 
     .login-container a {
-      color: #35b4c6;
+      color: #872341;
       text-decoration: none;
     }
 
@@ -90,29 +91,30 @@
 
     /* Style pour le bouton de retour */
     .back-button {
-      display: flex;
-      justify-content: flex-start; /* Aligner le contenu à gauche */
-      margin-top: 20px;
-    }
-
-    .back-button a {
-      display: flex;
-      align-items: center; /* Centrer l'icône verticalement */
-      padding: 10px 20px;
-      background-color: #35b4c6;
-      color: white;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .back-button a:hover {
-      background-color: #0056b3;
-    }
-
-    .back-button i {
-      margin-right: 8px; /* Espace entre l'icône et le texte */
-    }
+            display: flex;
+            justify-content: flex-start; /* Aligner à gauche */
+            margin-top: 20px;
+        }
+        .back-button a {
+            width: 100%;
+            padding: 12px;
+            background-color: #872341;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        .back-button a:hover {
+            background-color: #B39188;
+            color:#872341;
+        }
+        p a {
+            color: #872341
+        }
   </style>
 
   <!-- Font Awesome Icons -->
@@ -131,14 +133,15 @@
       <input type="password" name="password" required>
 
       <button type="submit"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
-
-      <p>Vous n'avez pas de compte ? <a href="inscription.html">Inscrivez-vous</a></p>
-    </form>
-
-    <!-- Bouton de retour -->
-    <div class="back-button">
+ <div class="back-button">
       <a href="index.html"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
     </div>
+      <p>Vous n'avez pas de compte ? <a href="inscription.html">Inscrivez-vous</a></p>
+    
+  </form>
+
+    <!-- Bouton de retour -->
+   
   </div>
 </body>
 
