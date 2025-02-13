@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'menu.php';
+include 'menu_admin.php';
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php"); // Redirect to login page
@@ -111,15 +111,15 @@ $notes = $stmt->fetchAll();
 
         /* Headings */
         h1 {
-            font-size: 24px;
+            text-align: center;
+            color:#3B1C32;
             margin-bottom: 20px;
-            color: #2c3e50;
         }
 
         h2 {
             font-size: 20px;
             margin-top: 30px;
-            color: #2980b9;
+            color:#3B1C32;
         }
 
         /* Search Form */
@@ -143,7 +143,7 @@ $notes = $stmt->fetchAll();
         form label {
             display: block;
             margin-bottom: 5px;
-            color: #34495e;
+            color:rgb(59, 28, 50);
         }
 
         form input[type="text"],
@@ -156,11 +156,30 @@ $notes = $stmt->fetchAll();
             font-size: 16px;
             margin-bottom: 15px;
         }
+        .btn-container {
+    text-align: center;
+}
 
+.btn1 {
+            background-color: #3B1C32;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            text-align: center;
+
+        }
+        .btn1:hover {
+            background-color: #F4CCE9;
+            color: #3B1C32;
+        }
         /* Button Styles */
         button {
-            background-color: #27ae60;
-            color: white;
+            background-color: #F4CCE9;
+            color: #3B1C32;
             border: none;
             padding: 10px 15px;
             border-radius: 4px;
@@ -169,8 +188,8 @@ $notes = $stmt->fetchAll();
         }
 
         button:hover {
-            background-color: #219653;
-        }
+            background-color:rgb(125, 28, 74);
+            color: white;        }
 
         /* Table Styles */
         table {
@@ -186,7 +205,7 @@ $notes = $stmt->fetchAll();
         }
 
         table th {
-            background-color: #2c3e50;
+            background-color:  #A64D79;
             color: white;
         }
 
@@ -213,20 +232,25 @@ $notes = $stmt->fetchAll();
                 width: 100%;
             }
         }
+         /* Hide sections initially */
+         .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1><i class="fas fa-file-medical"></i> Notes Médicales</h1>
 
-        <!-- Search bar -->
-        <div class="search-form">
-            <form method="get" action="">
-                <input type="text" name="search" placeholder="Rechercher des notes..." value="<?= htmlspecialchars($search) ?>">
-            </form>
-        </div>
+<div class="container">
+    <h1><i class="fas fa-file-medical"></i> Notes Médicales</h1>
 
-        <!-- Form to add notes -->
+    <!-- Buttons -->
+    <div class="btn-container">
+        <button class="btn1" onclick="showSection('add-note')"><i class="fas fa-plus"></i> Ajouter une note</button>
+        <button class="btn1" onclick="showSection('notes-list')"><i class="fas fa-list"></i> Afficher les notes publiées</button>
+    </div>
+
+    <!-- Form to add notes -->
+    <div id="add-note" class="hidden">
         <form method="post" action="" enctype="multipart/form-data">
             <label for="medecin_id">Choisir le Médecin :</label>
             <select name="medecin_id" required>
@@ -239,10 +263,12 @@ $notes = $stmt->fetchAll();
             <input type="text" name="description" required>
             <label for="pdf_file">Ajouter un fichier (PDF seulement) :</label>
             <input type="file" name="pdf_file" accept="application/pdf" required>
-            <button type="submit" name="submit">Ajouter la note</button>
+            <button type="submit" name="submit"><i class="fas fa-save"></i> Ajouter la note</button>
         </form>
+    </div>
 
-        <!-- Notes table -->
+    <!-- Notes table -->
+    <div id="notes-list" class="hidden">
         <h2>Historique des Notes</h2>
         <table>
             <thead>
@@ -259,7 +285,7 @@ $notes = $stmt->fetchAll();
                     <tr>
                         <td><?= htmlspecialchars($note['id']) ?></td>
                         <td><?= htmlspecialchars($note['description']) ?></td>
-                        <td><a href="./uploaded_notes/<?= htmlspecialchars($note['note']) ?>" target="_blank"><?= htmlspecialchars($note['note']) ?></a></td>
+                        <td><a href="./uploaded_notes/<?= htmlspecialchars($note['note']) ?>" target="_blank"><i class="fas fa-file-pdf"></i> <?= htmlspecialchars($note['note']) ?></a></td>
                         <td><?= htmlspecialchars($note['date_ajout']) ?></td>
                         <td><?= htmlspecialchars($note['medecin_prenom'] . ' ' . $note['medecin_nom']) ?></td>
                     </tr>
@@ -267,5 +293,16 @@ $notes = $stmt->fetchAll();
             </tbody>
         </table>
     </div>
+</div>
+
+<script>
+    function showSection(sectionId) {
+        document.getElementById('add-note').style.display = 'none';
+        document.getElementById('notes-list').style.display = 'none';
+
+        document.getElementById(sectionId).style.display = 'block';
+    }
+</script>
+
 </body>
 </html>

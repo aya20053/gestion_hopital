@@ -36,7 +36,7 @@
 }
 
 .menu-item {
-    padding: 10px;
+    padding: 8px;
     border-radius: 5px;
     transition: background 0.3s ease;
 }
@@ -46,7 +46,7 @@
             align-items: center;
             color: white;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             transition: color 0.3s ease;
         }
@@ -99,6 +99,11 @@
             border-radius: 5px;
            
         }
+        .copyright {
+ 
+   color: #ffff;
+     font-size: 12px;
+ }
     </style>
 </head>
 <body>
@@ -155,7 +160,15 @@
                 </a>
                 <div class="conseil">Déconnectez-vous en toute sécurité.</div>
             </div>
+            
+    
+    <hr>
+    
+    <p class="copyright">© 2025 Clinique de Bonheur. </p>
+</div>
         </div>
+
+        
     </div>
 
     <script>
@@ -167,5 +180,6 @@
             openMenuBtn.classList.toggle('menu-open');
         }
     </script>
+    
 </body>
 </html>

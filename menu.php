@@ -90,11 +90,15 @@
    
 }
  
-.menu-item img {
+.menu-iteme img {
     max-width: 100%; /* Adaptation à la taille du conteneur */
     height: auto; /* Conserve les proportions */
 }
-
+.copyright {
+   
+  color: #ffff;
+    font-size: 12px;
+}
 
     </style>
 </head>
@@ -110,7 +114,7 @@
            
         </div>
         <div class="menu-items">
-             <div class="menu-item">
+             <div class="menu-iteme">
             <img src="bg.png" alt="Logo Hôpital" />
             </div>
                 <div class="menu-item">
@@ -142,8 +146,14 @@
                     <i class="fas fa-sign-out-alt"></i> Se déconnecter
                 </a>
                 <div class="conseil">Déconnectez-vous en toute sécurité.</div>
-            </div>
+            </div> <hr>
+    
+    <p class="copyright">© 2025 Clinique de Bonheur.</p>
+</div>
         </div>
+        
+    
+   
     </div>
 
     <script>

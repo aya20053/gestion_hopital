@@ -32,6 +32,19 @@ $result = $conn->query($query);
             margin: 0;
             padding: 20px;
         }
+        h1{
+            text-align: center;
+            color:#3B1C32;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 90%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -43,7 +56,7 @@ $result = $conn->query($query);
             border-bottom: 1px solid #ddd;
         }
         table th {
-            background-color: #2c3e50;
+            background-color: #3B1C32;
             color: white;
         }
         table tr:hover {
@@ -52,7 +65,7 @@ $result = $conn->query($query);
         .btn-valider {
             display: inline-flex;
             align-items: center;
-            background-color: #28a745; /* Vert */
+            background-color: #9DC08B;
             color: white;
             text-decoration: none;
             padding: 8px 12px;
@@ -68,7 +81,8 @@ $result = $conn->query($query);
     </style>
 </head>
 <body>
-    <h1>Demandes de Validation de Comptes</h1>
+<div class="container">
+<h1><i class="fas fa-user-check"></i> Demandes de Validation de Comptes</h1>
     <table>
         <thead>
             <tr>
@@ -95,7 +109,7 @@ $result = $conn->query($query);
             <?php endwhile; ?>
         </tbody>
     </table>
-</body>
+</div></body>
 </html>
 
 <?php

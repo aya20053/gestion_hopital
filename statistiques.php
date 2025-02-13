@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'menu.php'; // Include your navigation menu
+include 'menu_admin.php'; // Include your navigation menu
 
 // Database connection parameters
 $host = "localhost";
@@ -40,16 +40,32 @@ $conn->close(); // Close the database connection
     <title>Statistiques</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
+         body {
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
+
         .container {
             margin-top: 30px;
         }
         .card {
             border-radius: 15px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+           
         }
+        .card-header{
+            background-color: #3B1C32;
+            color: white;
+            font-weight: bold;
+        }
+        
+        h2 {
+            text-align: center;
+            color:#3B1C32;
+            margin-bottom: 20px;
+        }
+        
     </style>
 </head>
 <body>
@@ -81,29 +97,31 @@ $conn->close(); // Close the database connection
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
-        type: 'bar', // Change this to 'line', 'pie', etc. if needed
+        type: 'pie', // Change this to 'line', 'pie', etc. if needed
         data: {
             labels: ['Patients', 'Médecins', 'Notes Médicales'],
             datasets: [{
                 
                 data: [<?php echo $total_patients; ?>, <?php echo $total_medecins; ?>, <?php echo $total_notes; ?>], // Use dynamic data from the database
                 backgroundColor: [
-                    'rgba(11, 87, 87, 0.6)',
+                    'rgba(59, 28, 50, 0.6)',
                     'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 159, 64, 0.7)'
+                    'rgba(153, 29, 118, 0.7)'
                 ],
                 borderColor: [
-                    'rgb(3, 65, 65)',
+                    'rgb(59, 28, 50)',
                     'rgb(89, 42, 184)',
-                    'rgb(150, 83, 17)'
+                    'rgb(153, 29, 118)'
                 ],
                 borderWidth: 1
             }]
         },
         options: {
+            
             scales: {
                 y: {
                     beginAtZero: true

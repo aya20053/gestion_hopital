@@ -217,7 +217,7 @@
 
 .contact h2 {
     text-align: center;
-    color: #333;
+    color: #872341;
     margin-bottom: 30px;
 }
 
@@ -234,6 +234,9 @@
             padding: 30px;
      
         }
+        h2{
+    color: #872341;
+}
 
 /* Section coordonnées (gauche) */
 .contact-info {
@@ -250,8 +253,16 @@
 
 .contact-info i {
     color: #872341;
-    margin-right: 8px;
-}
+    font-size: 28px;
+  margin: 10px;
+  margin-right: 30px;
+
+ }
+ .contact-info a{
+    color: #555;
+  text-decoration: none;
+
+ }
 
 
 .contact-form {
@@ -369,7 +380,17 @@ button:hover {
             background-color: #f0f0f0;
         }
 
-       
+        .location{
+        
+        width: 80%;
+        margin: auto;
+        padding: 80px 0;
+
+ }
+
+ .location iframe{
+  width: 100%;
+ }
       
     </style>
 </head>
@@ -389,7 +410,7 @@ button:hover {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#specialites">Nos spécialités</a>
+                        <a class="nav-link" href="#specialites"> Nos spécialités</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
@@ -416,7 +437,7 @@ button:hover {
     </div>
 
   <div class="specialties" id="specialites">
-    <h2> Nos Spécialités</h2>
+    <h2><i class="fas fa-stethoscope"></i> Nos Spécialités</h2>
     <div class="specialty-container">
         <div class="specialty-card">
             <i class="fas fa-baby"></i>
@@ -442,13 +463,19 @@ button:hover {
 
 
     <div class="contact"  id="contact">
-        <h2>Contactez-nous</h2>
+        <h2><i class="fas fa-envelope"></i> Contactez-nous</h2>
         <div class="contact-container">
+
+            <section class="location">
+            
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53396.14418422282!2d-8.544864333290604!3d33.23351720404839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda91dc1b421fe47%3A0x307cf87fb6b01a1f!2sEl%20Jadida!5e0!3m2!1sfr!2sma!4v1739486742505!5m2!1sfr!2sma" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </section>
+
             <!-- Coordonnées (gauche) -->
             <div class="contact-info">
-                <p><i class="fas fa-house"></i> <strong>Adresse :</strong> 123 Rue de l'Hôpital, Ville, Pays</p>
-                <p><i class="fas fa-phone-square"></i> <strong>Téléphone :</strong> +33 1 23 45 67 89</p>
-                <p><i class="fas fa-envelope"></i> <strong>Email :</strong> <a href="mailto:contact@exemple.com">contact@exemple.com</a></p>
+                <p><i class="fa fa-home"></i>123 Rue de l'Hôpital, Ville, Pays</p>
+                <p><i class="fa fa-phone"></i> +123 4567890</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:contact@exemple.com">contact@exemple.com</a></p>
             </div>
     
             <!-- Formulaire (droite) -->
@@ -475,6 +502,8 @@ button:hover {
             <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
             <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+
         </div>
     
     
